@@ -46,10 +46,16 @@ final public class ResultDao extends AbstractDao {
 	public Result findByHash(String hash) {
 		EntityManager em = createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT r FROM Result r WHERE r.resultHash = :hash").setParameter("hash", hash);
-			Result result=(Result)q.getSingleResult();
+			Query q = em.createQuery("SELECT r FROM Result r");
+			Collection<Result> results=(Collection<Result>)q.getResultList();
+			for(Result result : results){
+				if(result.getResultHash().equals(hash)){
+					System.out.println(result.getResultHash());
+					return result;
+				}
+			}
 			
-			return result;					
+								
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
 		} finally {		
@@ -322,8 +328,10 @@ final public class ResultDao extends AbstractDao {
 		em.getTransaction().begin();
 		
 		Result res=this.findByHash(result.getResultHash());
+		System.out.println(res);
 		if(res!=null){
-			res.setTotalPoints(res.getTotalPoints());
+			res.setTotalPoints(points);
+			System.out.println(res.getTotalPoints());
 			em.merge(res);
 		}
 		em.getTransaction().commit();

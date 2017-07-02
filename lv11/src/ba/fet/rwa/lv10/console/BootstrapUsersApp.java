@@ -158,10 +158,19 @@ public class BootstrapUsersApp {
 			res.setFirstName("Ime");
 			res.setUser(user);
 			//resultService.update(result,res);
-			Collection<Result> r=resultService.findByName("Ime");
-			resultService.delete(r.iterator().next());
-			
-			
+			//Collection<Result> r=resultService.findByFirstname("Rob");
+			//resultService.addPoints(r.iterator().next(), 100);
+			//resultService.clearPoints(r.iterator().next());
+			//resultService.setPoints(r.iterator().next(), 1000);
+			/*Collection<Result> results=resultService.findAll();
+			for(Result r1 : results){
+				System.out.println(r1.getResultHash());
+			}*/
+			/*Collection<Result>rez=resultService.findByFirstname("Rob");
+			for(Result r1 : rez){
+				System.out.println(r1.getFirstName());
+			}*/
+			//resultService.create(res);
 			//quizService.deleteQuiz(quiz);
 		
 		
