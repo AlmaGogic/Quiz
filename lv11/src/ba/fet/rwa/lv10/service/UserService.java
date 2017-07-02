@@ -29,6 +29,10 @@ public class UserService {
 		return userDao.findByUsername(username);
 	}
 	
+	public void LogIn(User user){
+		userDao.logIn(user);
+	}
+	
 	public void LogOut(User user){
 		userDao.logOut(user);
 	}

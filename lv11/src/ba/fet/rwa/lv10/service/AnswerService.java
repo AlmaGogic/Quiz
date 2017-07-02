@@ -1,5 +1,6 @@
 package ba.fet.rwa.lv10.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import ba.fet.rwa.lv10.dao.AnswerDao;
@@ -24,12 +25,12 @@ public class AnswerService {
 			return answerDao.findAllAnswers();
 		}
 		
-		public Answer findByText(String text) {
+		public Collection<Answer> findByText(String text) {
 			return answerDao.findByText(text);
 		}
 		
-		public void updateAnswer(Answer answer){
-			answerDao.update(answer);
+		public void updateAnswer(String questionName,String answerName,Answer answer){
+			answerDao.update(questionName,answerName,answer);
 		}
 		public void deleteAnswer(Answer answer){
 			answerDao.deleteAnswer(answer);

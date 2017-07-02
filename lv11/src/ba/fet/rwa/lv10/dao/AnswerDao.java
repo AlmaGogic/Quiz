@@ -1,5 +1,6 @@
 package ba.fet.rwa.lv10.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,18 +29,17 @@ final public class AnswerDao extends AbstractDao {
 			return resultList;
 		}
 		
-		public Answer findByText(String text) {
+		
+		
+		public Collection<Answer> findByText(String text) {
 			EntityManager em = createEntityManager();
 			try {
 				Query q = em.createQuery("SELECT a FROM Answer a WHERE a.text = :text").setParameter("text", text);
-				Answer answer = new Answer();
-				try{
-					answer=(Answer)q.getSingleResult();
-				}
-				catch(NoResultException e){
-					answer=null;
-				}
-				return answer;					
+				Collection<Answer> answers = new ArrayList<Answer>();
+				
+				answers=(Collection<Answer>)q.getResultList();
+				
+				return answers;					
 			} catch (RuntimeException e) {
 				System.out.println(e.getMessage());
 			} finally {		
@@ -61,18 +61,20 @@ final public class AnswerDao extends AbstractDao {
 			em.close();	
 		}
 		
-		public void update(Answer answer) {
+		public void update(String questionName,String answerName,Answer answer) {
 			EntityManager em = createEntityManager();
 			em.getTransaction().begin();
+			QuestionDao questionDao = new QuestionDao();
 			
-			Answer currentAnswer= (Answer)em.find(Answer.class ,answer.getId());
-			if(currentAnswer!=null){
-				currentAnswer.setAnswer(answer.getAnswer());
-				currentAnswer.setCorrectStatus(answer.getCorrectStatus());
-				em.merge(currentAnswer);
-			}
-			else{
-				em.persist(answer);
+			Question question = questionDao.findByText(questionName);
+			Collection<Answer>answers=question.getAnswers();
+			for(Answer currentAnswer : answers){
+				if(currentAnswer.getAnswer().equals(answerName)){
+					currentAnswer.setAnswer(answer.getAnswer());
+					currentAnswer.setCorrectStatus(answer.getCorrectStatus());
+					em.merge(currentAnswer);
+					break;
+				}
 			}
 			
 			em.getTransaction().commit();

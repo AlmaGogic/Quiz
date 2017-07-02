@@ -31,6 +31,18 @@ public class QuizService {
 		public Collection<Quiz> findByName(String name){
 			return quizDao.findByName(name);
 		}
+		public Quiz findOneByName(String name){
+			Collection<Quiz> quizzes=quizDao.findByName(name);
+			Quiz quiz = new Quiz();
+			try{
+				quiz=quizzes.iterator().next();
+			}
+			catch(Exception e){
+				quiz=null;
+				System.out.println(e.getMessage());
+			}
+			return quiz;
+		}
 		//Nađi kviz po id-u
 		public Quiz findById(int quizId){
 			return quizDao.findById(quizId);

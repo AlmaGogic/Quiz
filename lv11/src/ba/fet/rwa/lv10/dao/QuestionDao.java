@@ -164,30 +164,21 @@ final public class QuestionDao extends AbstractDao {
 		}
 	
 		
-		public void update(Question question, Answer answer) {
+		public void update(String questionName,Question question) {
 			EntityManager em = createEntityManager();
 			em.getTransaction().begin();
-			Question currentQuestion= (Question)em.find(Question.class ,question.getQuestionId());
+			Question currentQuestion= this.findByText(questionName);
 			if(currentQuestion!=null){
 				currentQuestion.setAnsweredStatus(question.getAnsweredStatus());
 				currentQuestion.setQuestionPoints(question.getQuestionPoints());
 				currentQuestion.setQuestionText(question.getQuestionText());
-				Answer currentAnswer= (Answer)em.find(Answer.class ,answer.getId());
-				if(currentAnswer!=null){
-					currentAnswer.setAnswer(answer.getAnswer());
-					currentAnswer.setCorrectStatus(answer.getCorrectStatus());
-					em.merge(currentAnswer);
+				Collection<Answer>answers=question.getAnswers();
+				for(Answer answer : answers){
+					currentQuestion.addAnswer(answer);
 				}
-				else{
-					em.merge(answer);
-				}
-				
-
 				em.merge(currentQuestion);
 			}
-			else{
-				em.merge(question);
-			}
+			
 			
 			em.getTransaction().commit();
 			em.close();	

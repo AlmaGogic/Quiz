@@ -87,18 +87,34 @@ final public class QuizDao extends AbstractDao {
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
 		
-
-		Quiz quiz= (Quiz)em.find(Quiz.class ,q.getQuizId());
+		Query q0=em.createQuery("SELECT q from Quiz q WHERE q.quizName = :text").setParameter("text", q.getQuizName() );
+		Quiz quiz = new Quiz();
+		try{
+			quiz=(Quiz)q0.getSingleResult();
+		}
+		catch(NoResultException e){
+			quiz=null;
+		}
+		boolean addingAllowed=true;
 		Query q1=em.createQuery("SELECT q FROM Question q WHERE q.text= :text").setParameter("text", question.getQuestionText());
-		Question quest = (Question) q1.getSingleResult();
+		Question quest = new Question();
+		try{
+			quest = (Question) q1.getSingleResult();
+		}
+		catch(NoResultException e){
+			quest=null;
+		}
 		if(quiz!=null){
-			if(!quiz.getQuestions().contains(quest)||quiz.getQuestions().contains(null)){
+			Collection<Question>questions =quiz.getQuestions();
+			for(Question qst :questions){
+				if(qst.getQuestionText().equals(quest.getQuestionText())){
+					addingAllowed=false;
+				}
+			}
+			if(addingAllowed){
 				quiz.addQuestion(quest);
 				em.merge(quiz);
 			}
-		}
-		else{
-			em.merge(q);
 		}
 		
 		em.getTransaction().commit();

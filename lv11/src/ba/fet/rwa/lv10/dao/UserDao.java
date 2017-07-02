@@ -78,18 +78,37 @@ final public class UserDao extends AbstractDao {
 		
 		
 	}
-	
+	public void logIn(User user){
+		EntityManager em = createEntityManager();
+		em.getTransaction().begin();
+		
+		User usr=this.findByUsername(user.getUsername());
+		LoggedStatus usrLog=usr.getLogStatus();
+		LoggedStatus login=new LoggedStatus();
+		
+		if(usrLog==null){
+			login.logIn(user);
+			user.setLogStatus(login);
+			em.merge(user);
+			em.merge(login);
+		}
+		
+		
+		em.getTransaction().commit();
+		em.close();	
+	}
 	public void logOut(User user){
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
 		
 		LoggedStatus logStatus = user.getLogStatus();
-		Collection<User>listOfUsers=logStatus.getLogInfo();
-		listOfUsers.remove(user);
-		
-		logStatus=em.merge(logStatus);
-		em.remove(logStatus);
-		
+		if(logStatus!=null){
+			Collection<User>listOfUsers=logStatus.getLogInfo();
+			listOfUsers.remove(user);
+			
+			logStatus=em.merge(logStatus);
+			em.remove(logStatus);
+		}
 		em.getTransaction().commit();
 		em.close();	
 		
@@ -221,7 +240,12 @@ final public class UserDao extends AbstractDao {
 		catch(NoResultException e){
 			retRole=null;
 		}
-			em.merge(user);
+		if(retUser!=null&&retRole!=null){
+			retUser.setRole(retRole);
+			retRole.addUserWithRole(retUser);
+			em.merge(retRole);
+			em.merge(retUser);
+		}
 		
 		
 		
