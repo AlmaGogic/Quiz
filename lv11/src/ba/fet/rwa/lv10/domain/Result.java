@@ -10,6 +10,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import ba.fet.rwa.lv10.util.SecurityUtil;
+
+
 @Entity
 public class Result {
 	
@@ -17,6 +20,7 @@ public class Result {
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name = "id")
 	int id;
+	String resultHash;
 	String firstName;
 	String lastName;
 	String email;
@@ -36,19 +40,23 @@ public class Result {
 	
 	public Result(){
 		id=0;
+		resultHash = SecurityUtil.Hash(" "+Math.random());
 		firstName="";
 		lastName="";
 		email="";
 		totalPoints=0;
+		user = new User();
 		quiz=new Quiz();
 	}
 	
-	public Result(int _id,String _firstName,String _lastName,String _email,int _totalPoints){
+	public Result(int _id,String _resultHash, String _firstName,String _lastName,String _email,int _totalPoints,User _user){
 		id=_id;
+		resultHash=_resultHash;
 		firstName=_firstName;
 		lastName=_lastName;
 		email=_email;
 		totalPoints=_totalPoints;
+		user= _user;
 		quiz= new Quiz();
 	}
 	
@@ -88,5 +96,17 @@ public class Result {
 	}
 	public void setQuiz(Quiz _quiz){
 		quiz=_quiz;
+	}
+	public void setUser(User _user){
+		user=_user;
+	}
+	public User getUser(){
+		return user;
+	}
+	public String getResultHash(){
+		return resultHash;
+	}
+	public void setResultHash(){
+		SecurityUtil.Hash(resultHash);
 	}
 }

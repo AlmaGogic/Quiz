@@ -7,17 +7,20 @@ import java.util.List;
 import ba.fet.rwa.lv10.dao.AnswerDao;
 import ba.fet.rwa.lv10.dao.QuestionDao;
 import ba.fet.rwa.lv10.dao.QuizDao;
+import ba.fet.rwa.lv10.dao.ResultDao;
 import ba.fet.rwa.lv10.dao.RoleDao;
 import ba.fet.rwa.lv10.dao.UserDao;
 import ba.fet.rwa.lv10.domain.Answer;
 import ba.fet.rwa.lv10.domain.LoggedStatus;
 import ba.fet.rwa.lv10.domain.Question;
 import ba.fet.rwa.lv10.domain.Quiz;
+import ba.fet.rwa.lv10.domain.Result;
 import ba.fet.rwa.lv10.domain.Role;
 import ba.fet.rwa.lv10.domain.User;
 import ba.fet.rwa.lv10.service.AnswerService;
 import ba.fet.rwa.lv10.service.QuestionService;
 import ba.fet.rwa.lv10.service.QuizService;
+import ba.fet.rwa.lv10.service.ResultService;
 import ba.fet.rwa.lv10.service.RoleService;
 import ba.fet.rwa.lv10.service.UserService;
 
@@ -30,13 +33,14 @@ public class BootstrapUsersApp {
 		AnswerService answerService = new AnswerService(new AnswerDao());
 		QuizService quizService = new QuizService(new QuizDao());
 		RoleService roleService = new RoleService(new RoleDao());
+		ResultService resultService = new ResultService(new ResultDao());
 		Role admin = new Role();
 		Role editor = new Role();
 		Role common = new Role();
 	
 		Collection<Role> users=roleService.findAll();
 		System.out.println(users.size());
-	/* PRVO OVO OTKOMENTARIŠI!!! TREBAJU SE PRVO ULOGE UNIJETI U BAZU!
+	// PRVO OVO OTKOMENTARIŠI!!! TREBAJU SE PRVO ULOGE UNIJETI U BAZU!
 	 		admin.setRole("admin");
 			editor.setRole("editor");
 			common.setRole("common");
@@ -44,7 +48,7 @@ public class BootstrapUsersApp {
 			roleService.create(admin);
 			roleService.create(editor);
 			roleService.create(common);
-*/
+
 		
 		
 		if (userService.findByUsername("dritchie") == null) {
@@ -67,7 +71,7 @@ public class BootstrapUsersApp {
 		if (userService.findByUsername("rpike") == null) {
 			
 			User user = new User();
-			LoggedStatus login = new LoggedStatus();
+			//LoggedStatus login = new LoggedStatus();
 
 			Role role =roleService.findByName("editor");
 			user.setRole(role);
@@ -77,11 +81,11 @@ public class BootstrapUsersApp {
 			user.setLastName("Pike");
 			user.setUsername("rpike");
 			user.setPassword("fet.ba");
-			
-			login.logIn(user);
-			user.setLogStatus(login);
+
 			userService.create(user,role);
-			
+			/*login.logIn(user);
+			user.setLogStatus(login);
+			*/
 		}
 		
 		/*Role role=new Role();
@@ -125,6 +129,7 @@ public class BootstrapUsersApp {
 				
 			}	
 			Quiz quiz1=quizService.findById(quiz.getQuizId());
+			Result result= new Result();
 			Answer answer1=new Answer();
 			Answer answer2=new Answer();
 				
@@ -140,9 +145,23 @@ public class BootstrapUsersApp {
 			answer2.setCorrectStatus(false);
 			questionService.create(question,answer1,answer2);
 			quizService.add(quiz1,question);
+			result.setQuiz(quiz);
+			quiz.addQuizResult(result);
+			
 			
 			User user=userService.findByUsername("dritchie");
+			result.setUser(user);
+			user.addUserResult(result);
+			resultService.create(result);
 			userService.changeRole(user.getUsername(), "common");
+			Result res=new Result();
+			res.setFirstName("Ime");
+			res.setUser(user);
+			//resultService.update(result,res);
+			Collection<Result> r=resultService.findByName("Ime");
+			resultService.delete(r.iterator().next());
+			
+			
 			//quizService.deleteQuiz(quiz);
 		
 		

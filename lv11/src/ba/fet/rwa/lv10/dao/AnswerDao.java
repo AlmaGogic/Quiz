@@ -4,17 +4,19 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import ba.fet.rwa.lv10.domain.Answer;
 import ba.fet.rwa.lv10.domain.Question;
+import ba.fet.rwa.lv10.domain.Role;
 
 
 final public class AnswerDao extends AbstractDao {
 	
 	
 		
-	    public AnswerDao() {
+		public void AnswerDao() {
 			
 		}
 		
@@ -30,8 +32,14 @@ final public class AnswerDao extends AbstractDao {
 			EntityManager em = createEntityManager();
 			try {
 				Query q = em.createQuery("SELECT a FROM Answer a WHERE a.text = :text").setParameter("text", text);
-				Answer question = (Answer) q.getSingleResult();
-				return question;					
+				Answer answer = new Answer();
+				try{
+					answer=(Answer)q.getSingleResult();
+				}
+				catch(NoResultException e){
+					answer=null;
+				}
+				return answer;					
 			} catch (RuntimeException e) {
 				System.out.println(e.getMessage());
 			} finally {		

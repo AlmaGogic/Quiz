@@ -128,5 +128,25 @@ public class User {
 	public void setRole(Role _role){
 		role=_role;
 	}
+	public Collection<Result> getUserResults(){
+		return listOfResults;
+	}
+	public void setUserResults(Collection<Result> userResults){
+		listOfResults.clear();
+		for(Result result : userResults){
+			listOfResults.add(result);
+		}
+	}
+	public void mergeUserResults(Collection<Result> userResults){
+		for(Result result : userResults){
+			listOfResults.add(result);
+		}
+	}
+	public void addUserResult(Result userResult){
+		listOfResults.add(userResult);
+	}
+	public void removeUserResult(Result userResult){	
+		listOfResults.remove(userResult);
+	}
 	
 }

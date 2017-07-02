@@ -10,5 +10,12 @@ public class SecurityUtil {
 	
 	public static boolean checkPassword(String candidate, String hashed) {
 		return BCrypt.checkpw(candidate, hashed);
-	}		
+	}
+	public static String Hash(String string) {
+		return BCrypt.hashpw(string, BCrypt.gensalt());
+	}
+	
+	public static boolean checkHash(String candidate, String hashed) {
+		return BCrypt.checkpw(candidate, hashed);
+	}
 }

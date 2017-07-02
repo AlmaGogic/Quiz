@@ -10,6 +10,7 @@
 		<class>ba.fet.rwa.lv10.domain.Question</class>
 		<class>ba.fet.rwa.lv10.domain.Quiz</class>
 		<class>ba.fet.rwa.lv10.domain.Result</class>
+		<class>ba.fet.rwa.lv10.domain.Role</class>
 		<class>ba.fet.rwa.lv10.domain.User</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />

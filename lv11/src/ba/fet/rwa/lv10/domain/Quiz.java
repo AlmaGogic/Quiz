@@ -83,6 +83,11 @@ public class Quiz {
 		listOfResults.clear();
 		addResults(_results);
 	}
-	
+	public void addQuizResult(Result quizResult){
+		listOfResults.add(quizResult);
+	}
+	public void removeQuizResult(Result quizResult){	
+		listOfResults.remove(quizResult);
+	}
 
 }
