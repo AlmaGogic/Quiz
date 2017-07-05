@@ -5,6 +5,7 @@ import java.util.List;
 
 import ba.fet.rwa.lv10.dao.AnswerDao;
 import ba.fet.rwa.lv10.domain.Answer;
+import ba.fet.rwa.lv10.domain.Question;
 
 
 public class AnswerService {
@@ -29,8 +30,8 @@ public class AnswerService {
 			return answerDao.findByText(text);
 		}
 		
-		public void updateAnswer(String questionName,String answerName,Answer answer){
-			answerDao.update(questionName,answerName,answer);
+		public void updateAnswer(Question question,Answer answer3,Answer answer){
+			answerDao.update(question,answer3,answer);
 		}
 		public void deleteAnswer(Answer answer){
 			answerDao.deleteAnswer(answer);

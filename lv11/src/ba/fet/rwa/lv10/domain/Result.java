@@ -40,7 +40,9 @@ public class Result {
 	
 	public Result(){
 		id=0;
-		resultHash = SecurityUtil.Hash(" "+Math.random());
+		double a=(Math.random()/Math.random())+Math.random();
+		System.out.println(a);
+		resultHash = SecurityUtil.Hash(" "+a);
 		firstName="";
 		lastName="";
 		email="";

@@ -67,6 +67,13 @@ public class Answer {
 	public void addToQuestion(Question question){
 		listOfQuestions.add(question);
 	}
+	public void removeFromQuestion(Question question){
+		for(Question q : listOfQuestions){
+			if(q.getQuestionText().equals(question.getQuestionText())){
+				listOfQuestions.remove(question);
+			}
+		}
+	}
 	public Collection<Question> getQuestions(){
 		return listOfQuestions;
 	}

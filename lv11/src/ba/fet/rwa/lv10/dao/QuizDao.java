@@ -82,6 +82,8 @@ final public class QuizDao extends AbstractDao {
 		return listOfQuestions;
 	} 
 	
+	
+	
 	public void addQuestionToQuiz(Quiz q,Question question){
 		
 		EntityManager em = createEntityManager();
@@ -95,7 +97,6 @@ final public class QuizDao extends AbstractDao {
 		catch(NoResultException e){
 			quiz=null;
 		}
-		boolean addingAllowed=true;
 		Query q1=em.createQuery("SELECT q FROM Question q WHERE q.text= :text").setParameter("text", question.getQuestionText());
 		Question quest = new Question();
 		try{
@@ -104,19 +105,52 @@ final public class QuizDao extends AbstractDao {
 		catch(NoResultException e){
 			quest=null;
 		}
+		boolean allowAdding=true;
 		if(quiz!=null){
-			Collection<Question>questions =quiz.getQuestions();
-			for(Question qst :questions){
-				if(qst.getQuestionText().equals(quest.getQuestionText())){
-					addingAllowed=false;
+			Collection<Question>quizQuestions=quiz.getQuestions();
+			for(Question qu : quizQuestions){
+				if(qu.getQuestionText().equals(quest.getQuestionText())){
+					System.out.println(quest.getQuestionText()+","+qu.getQuestionText());		
+					allowAdding=false;
+					break;
+					
 				}
 			}
-			if(addingAllowed){
+			if(allowAdding){
+				//quest.addToQuiz(quiz);
 				quiz.addQuestion(quest);
 				em.merge(quiz);
+				//em.merge(quest);
 			}
 		}
-		
+		else{
+			
+			quiz = new Quiz();
+			Query query=em.createQuery("SELECT e FROM Question e WHERE e.text = :text").setParameter("text", question.getQuestionText());
+			Question qu=new Question();
+			try{
+				qu=(Question)query.getSingleResult();
+			}
+			catch(NoResultException e){
+				qu=null;
+			}
+			quiz.setQuizName(q.getQuizName());
+			quiz.setResults(q.getResults());
+			if(qu!=null){
+				quiz.addQuestion(qu);
+				qu.addToQuiz(quiz);
+				em.merge(quiz);
+				em.merge(qu);
+			}
+			else{
+				quiz.addQuestion(question);
+				question.addToQuiz(quiz);
+				em.merge(quiz);
+				em.merge(question);
+			}
+
+		//	em.merge(question);
+		}
 		em.getTransaction().commit();
 		em.close();	
 		

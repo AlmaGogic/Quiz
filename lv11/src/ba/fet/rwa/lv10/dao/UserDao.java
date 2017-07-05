@@ -240,11 +240,20 @@ final public class UserDao extends AbstractDao {
 		catch(NoResultException e){
 			retRole=null;
 		}
+		System.out.println(retUser+"   "+ retRole);
 		if(retUser!=null&&retRole!=null){
 			retUser.setRole(retRole);
+			user.setLogStatus(null);
 			retRole.addUserWithRole(retUser);
 			em.merge(retRole);
 			em.merge(retUser);
+		}
+		if(retUser==null&&retRole!=null){
+			user.setRole(retRole);
+			user.setLogStatus(null);
+			retRole.addUserWithRole(user);
+			em.merge(retRole);
+			em.persist(user);
 		}
 		
 		

@@ -61,20 +61,45 @@ final public class AnswerDao extends AbstractDao {
 			em.close();	
 		}
 		
-		public void update(String questionName,String answerName,Answer answer) {
+		public void update(Question question,Answer answer3,Answer answer) {
 			EntityManager em = createEntityManager();
 			em.getTransaction().begin();
 			QuestionDao questionDao = new QuestionDao();
 			
-			Question question = questionDao.findByText(questionName);
-			Collection<Answer>answers=question.getAnswers();
+			Question q1=questionDao.findByText(question.getQuestionText());
+			Collection<Answer>answers=q1.getAnswers();
+			System.out.println(answers.size());
+			boolean addAnswer=true;
+			boolean changeAnswer=false;
+			boolean found=false;
 			for(Answer currentAnswer : answers){
-				if(currentAnswer.getAnswer().equals(answerName)){
-					currentAnswer.setAnswer(answer.getAnswer());
-					currentAnswer.setCorrectStatus(answer.getCorrectStatus());
-					em.merge(currentAnswer);
+				System.out.println(currentAnswer.getAnswer()+" "+answer.getAnswer()+" "+answer3.getAnswer());
+				if(currentAnswer.getAnswer().equals(answer.getAnswer())){
+					System.out.println("?");
+					changeAnswer=true;
+					addAnswer=false;
 					break;
 				}
+			}
+			for(Answer currentAnswer : answers){
+				System.out.println(":-) "+currentAnswer.getAnswer()+","+answer.getAnswer());
+				if(currentAnswer.getAnswer().equals(answer3.getAnswer())){
+					
+					if(addAnswer){
+						System.out.println(":-| "+currentAnswer.getAnswer()+","+answer.getAnswer());
+						currentAnswer.setAnswer(answer.getAnswer());
+						System.out.println(":-( "+currentAnswer.getAnswer()+","+answer.getAnswer());	
+						currentAnswer.setCorrectStatus(answer.getCorrectStatus());
+						//currentAnswer.addToQuestion(q1);
+						//q1.addAnswer(currentAnswer);
+						em.merge(currentAnswer);
+						
+					
+						break;
+					}
+				}
+			
+			
 			}
 			
 			em.getTransaction().commit();

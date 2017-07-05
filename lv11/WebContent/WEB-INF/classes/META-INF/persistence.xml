@@ -13,8 +13,9 @@
 		<class>ba.fet.rwa.lv10.domain.Role</class>
 		<class>ba.fet.rwa.lv10.domain.User</class>
 		<properties>
-			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
-			<!-- property name="eclipselink.ddl-generation" value="drop-and-create-tables" /-->			
+			  <property name="eclipselink.ddl-generation" value="create-and-extend-tables" />			
+			
+			<!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />		-->	
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:derby://localhost:1527/sample;create=true" />

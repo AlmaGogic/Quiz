@@ -89,11 +89,18 @@ final public class ResultDao extends AbstractDao {
 		return null;
 	}	
 		
-	public void save(Result result){
+	public void save(Quiz quiz,Result result){
 
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
-		
+		Query q1=em.createQuery("SELECT q FROM Quiz q WHERE q.quizName = :name").setParameter("name", quiz.getQuizName());
+		Quiz foundQuiz=new Quiz();
+		try{
+			foundQuiz=(Quiz)q1.getSingleResult();
+		}
+		catch(NoResultException e){
+			foundQuiz=null;
+		}
 		Collection<Result> currentResults=this.findByFirstname(result.getFirstName());
 		Result save = new Result();
 		for(Result res : currentResults){
@@ -102,8 +109,11 @@ final public class ResultDao extends AbstractDao {
 				break;
 			}
 		}
-		if(save!=null){
+		if(save!=null&&foundQuiz!=null){
+			result.setQuiz(foundQuiz);
+			foundQuiz.addQuizResult(result);
 			em.merge(result);
+			em.merge(foundQuiz);
 		}
 		em.getTransaction().commit();
 		em.close();	

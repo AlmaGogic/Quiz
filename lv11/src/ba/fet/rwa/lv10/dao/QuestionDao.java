@@ -1,5 +1,6 @@
 package ba.fet.rwa.lv10.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -97,15 +98,27 @@ final public class QuestionDao extends AbstractDao {
 		public Collection<Answer> findCorrectAnswers(Question question){
 			EntityManager em = createEntityManager();
 			Query q = em.createQuery("SELECT q FROM Question q where q.id = :id ").setParameter("id", question.getQuestionId());
-			Question retQuestion = (Question) q.getSingleResult();
-			Collection<Answer>listOfAnswers=retQuestion.getAnswers();
-			for(Answer currentAnswer : listOfAnswers){
-				if(currentAnswer.getCorrectStatus()==false){
-					listOfAnswers.remove(currentAnswer);
+			Question retQuestion = new Question();
+			Collection<Answer>listOfAnswers=new ArrayList<Answer>();
+			Collection<Answer>listOfCorrectAnswers=new ArrayList<Answer>();
+			try{
+				retQuestion= (Question) q.getSingleResult();
+			}
+			catch(NoResultException e){
+				retQuestion=null;
+			}
+			if(retQuestion!=null){
+				listOfAnswers=retQuestion.getAnswers();
+				for(Answer currentAnswer : listOfAnswers){
+					System.out.println(currentAnswer.getCorrectStatus());
+					if(currentAnswer.getCorrectStatus()==true){
+
+						listOfCorrectAnswers.add(currentAnswer);
+					}
 				}
 			}
 			em.close();
-			return listOfAnswers;
+			return listOfCorrectAnswers;
 		}
 		
 		public Collection<Question> findAnsweredQuestions(){
@@ -128,9 +141,10 @@ final public class QuestionDao extends AbstractDao {
 				catch(NoResultException e){
 					question=null;
 				}
+				//System.out.println("Answers size:" +question.getAnswers().size());
 				return question;					
 			} catch (RuntimeException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			} finally {		
 				if (em!= null) {
 					em.close();
@@ -140,22 +154,59 @@ final public class QuestionDao extends AbstractDao {
 		}
 		
 		public void save(Question question, Answer answer1, Answer answer2) {
-			
-			answer1.addToQuestion(question);
-			answer2.addToQuestion(question);
-			question.addAnswer(answer1);
-			question.addAnswer(answer2);
+			//System.out.println("AA");
 				
 			EntityManager em = createEntityManager();
 			em.getTransaction().begin();
 					
 			Question currentQuestion = this.findByText(question.getQuestionText());
-			
-			if(currentQuestion==null){
-				em.merge(answer1);
-				em.merge(answer2);
-				em.merge(question);
+			boolean addSecond=true;
+			boolean addFirst=true;
+			if(currentQuestion!=null){
+				Collection<Answer> currentAnswers=currentQuestion.getAnswers();
+				for(Answer a : currentAnswers){
+					if(a.getAnswer().equals(answer1.getAnswer())){
+						addFirst=false;
 						
+					}
+					if(a.getAnswer().equals(answer2.getAnswer())){
+						addSecond=false;
+					}
+
+				}
+				if(addFirst){
+					answer1.addToQuestion(currentQuestion);
+					currentQuestion.addAnswer(answer1);
+
+					em.merge(answer1);
+				}
+				if(addSecond){
+					answer2.addToQuestion(currentQuestion);
+					currentQuestion.addAnswer(answer2);
+
+					em.merge(answer2);
+				}
+				em.merge(currentQuestion);
+				
+			}
+			if(currentQuestion==null){
+				//System.out.println("AAA");
+				
+				Question q1=new Question();
+				q1.setQuestionPoints(question.getQuestionPoints());
+				q1.setAnsweredStatus(question.getAnsweredStatus());
+				q1.setQuestionText(question.getQuestionText());
+				answer1.addToQuestion(q1);
+				
+				q1.addAnswer(answer1);
+
+				em.merge(answer1);
+						
+				answer2.addToQuestion(q1);
+				q1.addAnswer(answer2);
+
+				em.merge(answer2);
+				em.merge(q1);				
 			}
 					
 			em.getTransaction().commit();
@@ -168,15 +219,37 @@ final public class QuestionDao extends AbstractDao {
 			EntityManager em = createEntityManager();
 			em.getTransaction().begin();
 			Question currentQuestion= this.findByText(questionName);
+			//
 			if(currentQuestion!=null){
+				System.out.println("Q: "+currentQuestion.getQuestionText());
 				currentQuestion.setAnsweredStatus(question.getAnsweredStatus());
 				currentQuestion.setQuestionPoints(question.getQuestionPoints());
 				currentQuestion.setQuestionText(question.getQuestionText());
 				Collection<Answer>answers=question.getAnswers();
+				Collection<Answer>currentAnswers=currentQuestion.getAnswers();
+				boolean updateQuestion=true;
 				for(Answer answer : answers){
-					currentQuestion.addAnswer(answer);
+					System.out.println("ljflsdkfjsl"+currentAnswers.size());
+					for(Answer curAnswer : currentAnswers){
+						System.out.println(curAnswer.getAnswer()+",mfljnfsa");
+						if(curAnswer.getAnswer().equals(answer.getAnswer())){
+							updateQuestion=false;
+							break;
+						}
+					}
+					if(updateQuestion){
+						Answer asw=new Answer();
+						asw.setCorrectStatus(answer.getCorrectStatus());
+						asw.setAnswer(answer.getAnswer());
+						currentQuestion.addAnswer(asw);
+						asw.addToQuestion(currentQuestion);
+						
+						em.merge(asw);
+						em.merge(currentQuestion);
+					}
+					
 				}
-				em.merge(currentQuestion);
+
 			}
 			
 			

@@ -52,7 +52,8 @@ public class BootstrapUsersApp {
 		roleService.create(editor);
 		roleService.create(common);
 
-		/*** KREIRANJE KORISNIKA ***/
+
+		System.out.println("U:"+(userService.findByUsername("dritchie")==null));
 		if (userService.findByUsername("dritchie") == null) {
 			
 			User user = new User();
@@ -132,43 +133,40 @@ public class BootstrapUsersApp {
 		
 		
 		/*** KREIRANJE NOVOG PITANJA I DODAVANJE U POSTOJEĆI KVIZ ***/
-		
-		Answer answer1=new Answer();
-		Answer answer2=new Answer();
+		if(questionService.findByText("Volite li programirati u c?")==null) {
+		Answer answer3=new Answer();
+		Answer answer4=new Answer();
 				
 		question.setAnsweredStatus(false);
 		question.setQuestionPoints(10);
 		question.setQuestionText("Volite li programirati u c?");
 		//System.out.println(question.getQuestionId()+","+question.getQuestionText()+" "+answer1.getAnswer()+" "+answer2.getAnswer());
 			
-		answer1.setAnswer("Da");
-		answer1.setCorrectStatus(true);
-		answer2.setAnswer("Ne");
+		answer3.setAnswer("Da");
+		answer3.setCorrectStatus(true);
+		answer4.setAnswer("Ne");
 			
-		answer2.setCorrectStatus(false);
-		questionService.create(question,answer1,answer2);
-		System.out.println(quiz+"  "+question);
-		quiz.addQuestion(question);
-		question.addToQuiz(quiz);
-		quizService.add(quiz,question);
+		answer4.setCorrectStatus(false);
+		questionService.create(question,answer3,answer4);
+		//System.out.println(quiz+"  "+question);
 		
+		quizService.add(quiz,question);
+		}
 		/*** KREIRANJE REZULTATA I VEZANJE ZA KVIZ I KORISNIKA ***/
 		Result result= new Result();
-		
-		result.setQuiz(quiz);
-		quiz.addQuizResult(result);
 
 		User user=userService.findByUsername("dritchie");
 		result.setUser(user);
+		System.out.println(user);
 		user.addUserResult(result);
-		resultService.create(result);
+		resultService.create(quiz,result);
 		
 		Result res=new Result();
 		res.setFirstName("Ime");
 		res.setUser(user);
 		
 		/*** MIJENJANJE ULOGE KORISNIKA ***/
-		userService.changeRole(user.getUsername(), "common");
+		//userService.changeRole(user.getUsername(), "common");
 		
 		/*** LOGIN I LOGOUT ***/
 		//userService.LogIn(user);
@@ -193,23 +191,31 @@ public class BootstrapUsersApp {
 		//quizService.deleteQuiz(quiz);
 		
 		
-		/*** MANIPULACIJA PITANJIMA I ODGOVORIMA OBAVEZNO PROVJERITI OPET ***/
-		/*Question foundQuestion = questionService.findByText("Volite li programirati u C?");
+		/*** MANIPULACIJA PITANJIMA (KO FOL RADI :-D) ***/
+		/*Question foundQuestion = questionService.findByText("Volite li programirati u c?");
 		Answer answer=new Answer();
 		answer.setAnswer("Mozda");
-		answer.setCorrectStatus(false);
-		
-		
-		if(foundQuestion!=null){
-			answer.addToQuestion(foundQuestion);
-			foundQuestion.addAnswer(answer);
-			foundQuestion.setQuestionText("Volite li programirati u C?");
-			//????Čudan -> questionService.update("Volite li programirati u C?", foundQuestion);
-			/*questionService.clearQuestion(foundQuestion);
-			questionService.deleteQuestion(question);
-			
-			answerService.updateAnswer(foundQuestion.getQuestionText(), answer.getAnswer(), answer2);
+		answer.setCorrectStatus(true);
 		*/
-		}
+		
+		//if(foundQuestion!=null){
+			//answer.addToQuestion(foundQuestion);
+			//foundQuestion.addAnswer(answer);
+			//System.out.println(foundQuestion.getAnswers().iterator().next().getAnswer());
+			//foundQuestion.setQuestionText("Volite li programirati u C?");
+			//questionService.update("Volite li programirati u c?", foundQuestion);
+			//questionService.clearQuestion(foundQuestion);
+			//questionService.deleteQuestion(foundQuestion);
+			/*if(foundQuestion.getAnswers().iterator().hasNext()){
+				Answer answer3=foundQuestion.getAnswers().iterator().next();
+				System.out.println("A: "+answer3.getAnswer());
+				answerService.updateAnswer(foundQuestion, answer3, answer);
+			}
+			Collection<Answer>answers=questionService.findCorrectAnswers(foundQuestion);
+			System.out.println(answers.size());
+			for(Answer a : answers){
+				System.out.println(a.getAnswer());
+			}
+		}*/
 	}
 }

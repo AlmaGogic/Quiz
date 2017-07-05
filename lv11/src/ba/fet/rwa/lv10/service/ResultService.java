@@ -3,6 +3,7 @@ package ba.fet.rwa.lv10.service;
 import java.util.Collection;
 
 import ba.fet.rwa.lv10.dao.ResultDao;
+import ba.fet.rwa.lv10.domain.Question;
 import ba.fet.rwa.lv10.domain.Quiz;
 import ba.fet.rwa.lv10.domain.Result;
 import ba.fet.rwa.lv10.domain.User;
@@ -15,8 +16,8 @@ public class ResultService {
 			this.resultDao = _quizDao;
 		}
 		//Napravi(sačuvaj) rezultat
-		public void create(Result result) {
-			resultDao.save(result);	
+		public void create(Quiz quiz, Result result) {
+			resultDao.save(quiz,result);	
 		}
 		//Izbriši rezultat
 		public void delete(Result result){
