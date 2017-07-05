@@ -5,15 +5,15 @@
 	<persistence-unit name="lv10example">
 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
-		<class>ba.fet.rwa.lv10.domain.Answer</class>
-		<class>ba.fet.rwa.lv10.domain.LoggedStatus</class>
-		<class>ba.fet.rwa.lv10.domain.Question</class>
-		<class>ba.fet.rwa.lv10.domain.Quiz</class>
-		<class>ba.fet.rwa.lv10.domain.Result</class>
-		<class>ba.fet.rwa.lv10.domain.Role</class>
-		<class>ba.fet.rwa.lv10.domain.User</class>
+		<class>quizClasses.Answer</class>
+		<class>quizClasses.LoggedStatus</class>
+		<class>quizClasses.Question</class>
+		<class>quizClasses.Quiz</class>
+		<class>quizClasses.Result</class>
+		<class>quizClasses.Role</class>
+		<class>quizClasses.User</class>
 		<properties>
-			  <property name="eclipselink.ddl-generation" value="create-and-extend-tables" />			
+			  <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />			
 			
 			<!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />		-->	
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />

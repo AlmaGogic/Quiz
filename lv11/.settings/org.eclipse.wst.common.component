@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="lv11">
+    <wb-module deploy-name="RWAProjekat-Quiz">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="lv11"/>
-        <property name="java-output-path" value="/lv11/bin"/>
+        <property name="java-output-path" value="/RWAProjekat-Quiz/bin"/>
+        <property name="context-root" value="RWAProjekat-Quiz"/>
     </wb-module>
 </project-modules>
