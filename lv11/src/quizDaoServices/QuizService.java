@@ -1,10 +1,8 @@
 package quizDaoServices;
 
-import java.util.Collection;
-
-import quizClasses.Question;
-import quizClasses.Quiz;
-import quizDao.QuizDao;
+import java.util.*;
+import quizClasses.*;
+import quizDao.*;
 
 public class QuizService {
 	

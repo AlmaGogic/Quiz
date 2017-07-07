@@ -1,21 +1,10 @@
 package quizDao;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import quizClasses.Answer;
-import quizClasses.Question;
-import quizClasses.Quiz;
+import java.util.*;
+import javax.persistence.*;
+import quizClasses.*;
 
 final public class QuizDao extends AbstractDao {
-	
-	public void QuizDao() {
-		
-	}
 	
 	public List<Quiz> findAll() {
 		EntityManager em = createEntityManager();
@@ -94,8 +83,6 @@ final public class QuizDao extends AbstractDao {
 		em.close();	
 		return listOfQuestions;
 	} 
-	
-	
 	
 	public void addQuestionToQuiz(Quiz q,Question question){
 		

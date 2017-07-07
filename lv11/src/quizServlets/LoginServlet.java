@@ -22,6 +22,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
 
+
 	public LoginServlet() {
 		super();
 		userService = new UserService(new UserDao());
@@ -55,13 +56,21 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		if (messages.isEmpty()) {
+			System.out.println("User:" +username +", pass: "+password);
 
 			User user = userService.authenticate(username, password);
 
 			if (user != null) {
-				request.getSession().setAttribute("user", user);
-				response.sendRedirect(request.getContextPath() + "/admin/home");
-				return;
+				if(userService.checkIfLogged(user)){
+					messages.put("logged", "You are already logged in, we will try to log you out, and then you can login again!");
+					userService.LogOut(user);
+				}
+				else{
+					request.getSession().setAttribute("user", user);
+					userService.LogIn(user);
+					response.sendRedirect(request.getContextPath() + "/admin/home");
+					return;
+				}
 			} else {
 				messages.put("login", "Unknown login, please try again");
 			}

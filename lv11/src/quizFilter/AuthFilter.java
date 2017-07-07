@@ -46,7 +46,7 @@ public class AuthFilter implements Filter {
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
-        
+        System.out.println(request.getRequestURI());
         if (loggedIn || loginRequest) {
             chain.doFilter(request, response);
         } else {

@@ -1,24 +1,11 @@
 package quizDao;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import quizClasses.Answer;
-import quizClasses.Question;
+import java.util.*;
+import javax.persistence.*;
+import quizClasses.*;
 
 
 final public class QuestionDao extends AbstractDao {
-	
-	
-		
-		public void QuestionDao() {
-			
-		}
 		
 		public List<Question> findAllQuestions() {
 			EntityManager em = createEntityManager();
@@ -72,9 +59,7 @@ final public class QuestionDao extends AbstractDao {
 				retQuestion=null;
 			}
 			Collection<Answer>listOfAnswers=retQuestion.getAnswers();
-			
 			listOfAnswers.clear();
-			
 			retQuestion=em.merge(retQuestion);
 			em.remove(retQuestion);
 			
@@ -183,9 +168,7 @@ final public class QuestionDao extends AbstractDao {
 					answer.addToQuestion(question);
 					em.merge(answer);
 					em.merge(q);
-					
 				}
-				
 			}
 			
 			em.getTransaction().commit();
@@ -206,25 +189,20 @@ final public class QuestionDao extends AbstractDao {
 				Collection<Answer> currentAnswers=currentQuestion.getAnswers();
 				for(Answer a : currentAnswers){
 					if(a.getAnswer().equals(answer1.getAnswer())){
-						addFirst=false;
-						
+						addFirst=false;	
 					}
 					if(a.getAnswer().equals(answer2.getAnswer())){
 						addSecond=false;
 					}
-
 				}
 				if(addFirst){
 					answer1.addToQuestion(currentQuestion);
 					currentQuestion.addAnswer(answer1);
-					
-
 					em.merge(answer1);
 				}
 				if(addSecond){
 					answer2.addToQuestion(currentQuestion);
 					currentQuestion.addAnswer(answer2);
-
 					em.merge(answer2);
 				}
 
@@ -241,9 +219,7 @@ final public class QuestionDao extends AbstractDao {
 				answer1.addToQuestion(q1);
 				
 				q1.addAnswer(answer1);
-
 				em.merge(answer1);
-						
 				answer2.addToQuestion(q1);
 				q1.addAnswer(answer2);
 
@@ -295,7 +271,6 @@ final public class QuestionDao extends AbstractDao {
 				}
 
 			}
-			
 			
 			em.getTransaction().commit();
 			em.close();	

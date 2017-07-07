@@ -1,26 +1,10 @@
 package quizDao;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import quizClasses.Answer;
-import quizClasses.LoggedStatus;
-import quizClasses.Question;
-import quizClasses.Quiz;
-import quizClasses.Result;
-import quizClasses.Role;
-import quizClasses.User;
+import java.util.*;
+import javax.persistence.*;
+import quizClasses.*;
 
 final public class RoleDao extends AbstractDao {
-	
-	public void RoleDao() {
-		
-	}
 	
 	public Collection<Role> findAll() {
 		EntityManager em = createEntityManager();
@@ -176,8 +160,7 @@ final public class RoleDao extends AbstractDao {
 		
 		em.getTransaction().commit();
 		em.close();	
-		
-		
+			
 		if(userRole!=null && role!=null && userRole.equals(role.getRole())){
 			return true;
 		}
@@ -209,18 +192,18 @@ final public class RoleDao extends AbstractDao {
 	public void update(String oldRoleName, Role newRole) {
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
-			Role oldRole=this.findByName(oldRoleName);
-			Role newRole1=this.findByName(newRole.getRole());
-			if(oldRole!=null&&newRole1==null){
-				oldRole.setRole(newRole.getRole());
-				if(!newRole.getUsersWithRoles().isEmpty()){
-					Collection<User>oldUsers=oldRole.getUsersWithRoles();
-					oldUsers.addAll(newRole.getUsersWithRoles());
-					oldRole.getUsersWithRoles().clear();
-					oldRole.setUsersWithRoles(oldUsers);
-				}
-				em.merge(oldRole);
+		Role oldRole=this.findByName(oldRoleName);
+		Role newRole1=this.findByName(newRole.getRole());
+		if(oldRole!=null&&newRole1==null){
+			oldRole.setRole(newRole.getRole());
+			if(!newRole.getUsersWithRoles().isEmpty()){
+				Collection<User>oldUsers=oldRole.getUsersWithRoles();
+				oldUsers.addAll(newRole.getUsersWithRoles());
+				oldRole.getUsersWithRoles().clear();
+				oldRole.setUsersWithRoles(oldUsers);
 			}
+			em.merge(oldRole);
+		}
 		em.getTransaction().commit();
 		em.close();	
 	}

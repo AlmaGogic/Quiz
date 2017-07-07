@@ -1,22 +1,11 @@
 package quizDao;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import quizClasses.Quiz;
-import quizClasses.Result;
-import quizClasses.User;
+import java.util.*;
+import javax.persistence.*;
+import quizClasses.*;
 import quizSecurityUtil.SecurityUtil;
 
 final public class ResultDao extends AbstractDao {
-	
-	public void RoleDao() {
-		
-	}
 	
 	public Collection<Result> findAll() {
 		EntityManager em = createEntityManager();
@@ -138,9 +127,7 @@ final public class ResultDao extends AbstractDao {
 				break;
 				}
 			}
-		
-		
-		
+			
 		em.getTransaction().commit();
 		em.close();	
 	}
@@ -151,7 +138,6 @@ final public class ResultDao extends AbstractDao {
 		
 		Query q2=em.createQuery("SELECT r FROM Result r");
 		Collection<Result>listOfResults= new ArrayList<Result>();
-		
 		
 		listOfResults=(Collection<Result>)q2.getResultList();
 		for(Result r1 : listOfResults){
@@ -194,19 +180,19 @@ final public class ResultDao extends AbstractDao {
 		
 		Collection<Result> currentResults=this.findByFirstname(oldResult.getFirstName());
 			
-			for(Result res : currentResults){
-				//System.out.println(res.getUser().getUsername()+" , "+newResult.getUser().getUsername());
-				if(res.getUser().getUsername().equals(newResult.getUser().getUsername())){
-					res.setEmail(newResult.getEmail());
-					res.setFirstName(newResult.getFirstName());
-					res.setLastName(newResult.getLastName());
-					res.setQuiz(newResult.getQuiz());
-					res.setTotalPoints(newResult.getTotalPoints());
-					res.setUser(newResult.getUser());
-					user.addUserResult(res);
-					quiz.addQuizResult(res);
-					em.merge(res);
-					break;
+		for(Result res : currentResults){
+			//System.out.println(res.getUser().getUsername()+" , "+newResult.getUser().getUsername());
+			if(res.getUser().getUsername().equals(newResult.getUser().getUsername())){
+				res.setEmail(newResult.getEmail());
+				res.setFirstName(newResult.getFirstName());
+				res.setLastName(newResult.getLastName());
+				res.setQuiz(newResult.getQuiz());
+				res.setTotalPoints(newResult.getTotalPoints());
+				res.setUser(newResult.getUser());
+				user.addUserResult(res);
+				quiz.addQuizResult(res);
+				em.merge(res);
+				break;
 			}
 		}
 		
@@ -317,7 +303,6 @@ final public class ResultDao extends AbstractDao {
 			}
 		}		
 		return null;
-
 	}
 
 	public void addScore(Result result, int points) {

@@ -10,21 +10,21 @@ public class BootstrapUsersApp {
 	public static void main(String[] args) {
 		/*** DATABASE INIT METODE ***/
 		
-		UserService userService = new UserService(new UserDao());
+	/*	UserService userService = new UserService(new UserDao());
 		QuestionService questionService = new QuestionService(new QuestionDao());
 		//AnswerService answerService = new AnswerService(new AnswerDao());
 		QuizService quizService = new QuizService(new QuizDao());
 		RoleService roleService = new RoleService(new RoleDao());
 		ResultService resultService = new ResultService(new ResultDao());
-		
+		*/
 		/*** KREIRANJE KORISNIČKIH ULOGA ***/
 		
-		Role admin = new Role();
-		Role editor = new Role();
-		Role common = new Role();
+		//Role admin = new Role();
+		//Role editor = new Role();
+		//Role common = new Role();
 	
 		//Collection<Role> users=roleService.findAll();
-		
+		/*
 	 	admin.setRole("admin");
 		editor.setRole("editor");
 		common.setRole("common");
@@ -32,10 +32,10 @@ public class BootstrapUsersApp {
 		roleService.create(admin);
 		roleService.create(editor);
 		roleService.create(common);
-
+*/
 
 		//System.out.println("U:"+(userService.findByUsername("dritchie")==null));
-		if (userService.findByUsername("dritchie") == null) {
+		/*if (userService.findByUsername("dritchie") == null) {
 			
 			User user = new User();
 			Role role =roleService.findByName("admin");
@@ -67,7 +67,7 @@ public class BootstrapUsersApp {
 			user.setPassword("fet.ba");
 
 			userService.create(user,role);
-		}
+		}*/
 		
 		/*Role role=new Role();
 		role.setRole("user");
@@ -79,10 +79,10 @@ public class BootstrapUsersApp {
 		/*** KREIRANJE KVIZA ***/
 		//Dodaje jedno pitanje sa 2 odgovora
 		
-		Quiz quiz=new Quiz();
+		//Quiz quiz=new Quiz();
 
 		//quiz.setQuizId(1);
-		quiz.setQuizName("Kviz");
+		/*quiz.setQuizName("Kviz");
 
 		Question question = new Question();
 		
@@ -109,12 +109,12 @@ public class BootstrapUsersApp {
 			quizService.create(quiz, question);
 				
 		}	
-		
+		*/
 		
 		
 		
 		/*** KREIRANJE NOVOG PITANJA I DODAVANJE U POSTOJEĆI KVIZ ***/
-		if(questionService.findByText("Volite li programirati u c?")==null) {
+		/*if(questionService.findByText("Volite li programirati u c?")==null) {
 		Answer answer3=new Answer();
 		Answer answer4=new Answer();
 				
@@ -131,14 +131,14 @@ public class BootstrapUsersApp {
 
 
 		questionService.create(question,answer3,answer4);
-		
+		*/
 
 		//System.out.println(quiz+"  "+question);
 		
-		quizService.add(quiz,question);
-		}
+		/*quizService.add(quiz,question);
+		}*/
 		/*** KREIRANJE REZULTATA I VEZANJE ZA KVIZ I KORISNIKA ***/
-		Result result= new Result();
+		/*Result result= new Result();
 
 		User user=userService.findByUsername("dritchie");
 		result.setUser(user);
@@ -149,7 +149,7 @@ public class BootstrapUsersApp {
 		Result res=new Result();
 		res.setFirstName("Ime");
 		res.setUser(user);
-		
+		*/
 		/*** MIJENJANJE ULOGE KORISNIKA ***/
 		//userService.changeRole(user.getUsername(), "common");
 		
@@ -177,13 +177,13 @@ public class BootstrapUsersApp {
 		
 		
 		/*** MANIPULACIJA PITANJIMA (KO FOL RADI :-D) ***/
-		Question foundQuestion = questionService.findByText("Volite li programirati u c?");
+		//Question foundQuestion = questionService.findByText("Volite li programirati u c?");
 		/*Answer answer=new Answer();
 		answer.setAnswer("Mozda");
 		answer.setCorrectStatus(true);
 		*/
 		
-		if(foundQuestion!=null){
+		//if(foundQuestion!=null){
 			
 			//answer.addToQuestion(foundQuestion);
 			//foundQuestion.addAnswer(answer);
@@ -202,6 +202,6 @@ public class BootstrapUsersApp {
 			for(Answer a : answers){
 				System.out.println(a.getAnswer());
 			}*/
-		}
+		//}
 	}
 }
