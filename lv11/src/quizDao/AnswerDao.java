@@ -11,7 +11,7 @@ final public class AnswerDao extends AbstractDao {
 	
 	
 		
-		public void AnswerDao() {
+		public AnswerDao() {
 			
 		}
 		

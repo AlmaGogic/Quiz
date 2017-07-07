@@ -21,7 +21,7 @@ import quizDaoServices.UserService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
-
+	
 	public LoginServlet() {
 		super();
 		userService = new UserService(new UserDao());
@@ -60,13 +60,14 @@ public class LoginServlet extends HttpServlet {
 
 			if (user != null) {
 				request.getSession().setAttribute("user", user);
-				response.sendRedirect(request.getContextPath() + "/admin/home");
-				return;
+			
+					response.sendRedirect(request.getContextPath() + "/admin/home");
+					return;
 			} else {
 				messages.put("login", "Unknown login, please try again");
 			}
 		}
-
+		
 		request.setAttribute("messages", messages);
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}

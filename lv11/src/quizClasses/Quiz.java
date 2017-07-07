@@ -20,6 +20,7 @@ public class Quiz {
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name = "id")
 	private int id;
+	private String quizLogo;
 	private String quizName;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name="QuizQuestion",joinColumns=@JoinColumn(name="quizID", 
@@ -60,6 +61,14 @@ public class Quiz {
 	
 	public void setQuizName(String _quizName){
 		quizName=_quizName;
+	}
+	
+	public String getQuizLogo(){
+		return quizLogo;
+	}
+	
+	public void setQuizLogo(String _quizLogo){
+		quizLogo=_quizLogo;
 	}
 	
 	public void addQuestion(Question question){

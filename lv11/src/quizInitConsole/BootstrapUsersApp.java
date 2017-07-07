@@ -82,8 +82,8 @@ public class BootstrapUsersApp {
 		Quiz quiz=new Quiz();
 
 		//quiz.setQuizId(1);
-		quiz.setQuizName("Kviz");
-
+		quiz.setQuizName("Java");
+		
 		Question question = new Question();
 		
 		//Ako nema pitanja u bazi
