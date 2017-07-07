@@ -1,13 +1,113 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<style>
+.demo-layout-transparent {
+  background: url('http://www.twitrcovers.com/wp-content/uploads/2013/02/Programming-Code-l.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+.mdl-grid{
+   color: red;
+   padding-left: 100px;
+   height: 200px;
+   font-family: "Serif";
+}
+
+.mdl-cell{
+    background-size: 100% 100%;
+}
+
+span:hover {
+  font-weight: bold;
+}
+
+a:hover {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+main {
+	color: white;
+}
+</style>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+      <title>Quiz Admin</title>
+      <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.brown-deep_orange.min.css">
+      <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<body>
-<h2>Welcome, you're now logged in!</h2>
-<a href="/Filters/login?logout=true">logout</a>  
+
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Editing</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+        <span class="mdl-badge" data-badge="4">Inbox</span>
+        <a class="mdl-navigation__link" href="home">Quiz list</a>
+        <a class="mdl-navigation__link" href="">Users</a>
+        <a class="mdl-navigation__link" href="">Log out</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Editing</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="home">Quiz list</a>
+      <a class="mdl-navigation__link" href="">Users</a>
+      <a class="mdl-navigation__link" href="">Inbox</a>
+      <a class="mdl-navigation__link" href="">Log out</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+   <div class="page-content" id="container" style="padding-left:100px;">Welcome, here you can edit Quizzes!
+   		<div class="mdl-grid" id="quiz"></div>
+   		</div>
+  </main>
+</div>
+     
+<script type="text/javascript">
+	function editJava(){
+		var container = document.getElementById("container");
+		var oldDiv = document.getElementById("quiz");
+		
+		var newDiv = document.createElement("div");
+		newDiv.innerHTML = "";
+		newDiv.setAttribute("class", "mdl-grid");
+		newDiv.setAttribute("id", "Java");
+		
+		container.replaceChild(newDiv, oldDiv);
+	}
+	
+		document.getElementById("quiz").innerHTML = "";
+		var p = <%=request.getAttribute("q")%>;
+	
+		for (var key in p) {
+			if (p.hasOwnProperty(key)) {
+				var sdiv = document.createElement("div");
+				sdiv.setAttribute("class", "mdl-cell mdl-cell--4-col");
+				sdiv.setAttribute("onclick", "edit" + key + "()");
+				var url = p[key];
+				console.log(url);
+				sdiv.style.backgroundImage = "url(" + url + ")";
+				sdiv.setAttribute("id", key);
+				document.getElementById("quiz").appendChild(sdiv);
+				
+	      }
+         }
+	
+</script> 
+          
 </body>
 </html>

@@ -6,6 +6,7 @@ import quizClasses.*;
 
 
 final public class AnswerDao extends AbstractDao {
+
 		
 		public Collection<Answer> findAllAnswers() {
 			EntityManager em = createEntityManager();

@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 /quizServlets/
 /quizDao/
 /quizDaoServices/
 /quizInitConsole/
 /quizFilter/
+=======
+/quizDao/
+/quizDaoServices/
+/quizFilter/
+/quizInitConsole/
+/quizSecurityUtil/
+/quizServlets/
+/quizClasses/
+>>>>>>> 8050cc57757dae48e4489ccc973b96130c058774

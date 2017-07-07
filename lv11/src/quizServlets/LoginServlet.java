@@ -21,8 +21,12 @@ import quizDaoServices.UserService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
+<<<<<<< HEAD
 
 
+=======
+	
+>>>>>>> 8050cc57757dae48e4489ccc973b96130c058774
 	public LoginServlet() {
 		super();
 		userService = new UserService(new UserDao());
@@ -75,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 				messages.put("login", "Unknown login, please try again");
 			}
 		}
-
+		
 		request.setAttribute("messages", messages);
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
