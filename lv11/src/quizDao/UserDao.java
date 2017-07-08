@@ -95,7 +95,8 @@ final public class UserDao extends AbstractDao {
 		if(logStatus!=null){
 			Collection<User>listOfUsers=logStatus.getLogInfo();
 			listOfUsers.remove(user);
-			
+			user.setLogStatus(null);
+			em.merge(user);
 			logStatus=em.merge(logStatus);
 			em.remove(logStatus);
 			em.getTransaction().commit();
@@ -105,7 +106,29 @@ final public class UserDao extends AbstractDao {
 		em.getTransaction().commit();
 		em.close();	
 		return false;
-	} 
+	}
+	
+	public boolean logOut(String username){
+		EntityManager em = createEntityManager();
+		em.getTransaction().begin();
+		User user = this.findByUsername(username);
+		LoggedStatus logStatus = user.getLogStatus();
+		System.out.println(user.getFirstName());
+		if(logStatus!=null){
+			Collection<User>listOfUsers=logStatus.getLogInfo();
+			listOfUsers.remove(user);
+			user.setLogStatus(null);
+			em.merge(user);
+			logStatus=em.merge(logStatus);
+			em.remove(logStatus);
+			em.getTransaction().commit();
+			em.close();	
+			return true;
+		}
+		em.getTransaction().commit();
+		em.close();	
+		return false;
+	}
 	
 	public void update(String username,User user) {
 		EntityManager em = createEntityManager();

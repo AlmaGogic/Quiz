@@ -10,8 +10,8 @@ public class BootstrapUsersApp {
 	public static void main(String[] args) {
 		/*** DATABASE INIT METODE ***/
 		
-	/*	UserService userService = new UserService(new UserDao());
-		QuestionService questionService = new QuestionService(new QuestionDao());
+		UserService userService = new UserService(new UserDao());
+		/*QuestionService questionService = new QuestionService(new QuestionDao());
 		//AnswerService answerService = new AnswerService(new AnswerDao());
 		QuizService quizService = new QuizService(new QuizDao());
 		RoleService roleService = new RoleService(new RoleDao());
@@ -156,8 +156,9 @@ public class BootstrapUsersApp {
 		
 		/*** LOGIN I LOGOUT ***/
 		//userService.LogIn(user);
-		//userService.LogOut(user);
-
+		/*User  user = userService.findByUsername("g");
+		userService.LogOut(user);
+*/
 		/*** MANIPULACIJA REZULTATOM ***/
 		
 		//resultService.update(result,res);

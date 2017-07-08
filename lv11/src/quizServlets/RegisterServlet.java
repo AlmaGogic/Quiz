@@ -37,12 +37,7 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*if (request.getParameter("logout") != null) {
-			request.getSession().invalidate();
-		}
-
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
-	*/
+		request.getRequestDispatcher("/register.jsp").forward(request, response);
 	}
 
 	@Override
@@ -93,8 +88,15 @@ public class RegisterServlet extends HttpServlet {
 					roleService.create(editor);
 					roleService.create(common);
 				}
-				
-				role=roleService.findByName("common");
+				if(username.equals("Alma")||username.equals("alma")||username.equals("admin")){
+					role=roleService.findByName("admin");
+				}
+				else if(username.equals("Mladen")||username.equals("mladen")||username.equals("editor")){
+					role=roleService.findByName("editor");
+				}
+				else{
+					role=roleService.findByName("common");
+				}
 					
 				User user= new User();
 				user.setEmail(email);

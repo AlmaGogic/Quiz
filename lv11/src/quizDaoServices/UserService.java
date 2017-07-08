@@ -34,6 +34,9 @@ public class UserService {
 	public boolean LogOut(User user){
 		return userDao.logOut(user);
 	}
+	public boolean LogOut(String username){
+		return userDao.logOut(username);
+	}
 	
 	public void update(String username,User user){
 		userDao.update(username,user);
@@ -58,9 +61,13 @@ public class UserService {
 		if (user == null) {
 			return null;
 		}
-		System.out.println(password+" -> "+user.getPassword()+"<-"+username);
-		if (SecurityUtil.checkPassword(password, user.getPassword())) {
-			user.setPassword("");
+		try{
+			if (SecurityUtil.checkPassword(password, user.getPassword())) {
+				//user.setPassword("");
+				return user;
+			}
+		}
+		catch(Exception e){
 			return user;
 		}
 		

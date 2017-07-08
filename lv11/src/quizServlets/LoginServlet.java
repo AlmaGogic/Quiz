@@ -21,12 +21,7 @@ import quizDaoServices.UserService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
-<<<<<<< HEAD
 
-
-=======
-	
->>>>>>> 8050cc57757dae48e4489ccc973b96130c058774
 	public LoginServlet() {
 		super();
 		userService = new UserService(new UserDao());
@@ -63,18 +58,25 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("User:" +username +", pass: "+password);
 
 			User user = userService.authenticate(username, password);
-
+			System.out.println(user != null);
 			if (user != null) {
-				if(userService.checkIfLogged(user)){
-					messages.put("logged", "You are already logged in, we will try to log you out, and then you can login again!");
-					userService.LogOut(user);
-				}
-				else{
+
+				if(!userService.checkIfLogged(user)){
 					request.getSession().setAttribute("user", user);
 					userService.LogIn(user);
-					response.sendRedirect(request.getContextPath() + "/admin/home");
+					if(user.getRole().getRole().equals("common")){
+						response.sendRedirect(request.getContextPath() + "/user/home");
+					}
+					else{
+						response.sendRedirect(request.getContextPath() + "/admin/home");
+					}
 					return;
 				}
+				else{
+					userService.LogOut(user.getUsername());
+					messages.put("logged", "You are logged already! Trying to log you out!");
+				}
+				
 			} else {
 				messages.put("login", "Unknown login, please try again");
 			}
