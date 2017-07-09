@@ -1,6 +1,8 @@
 package quizInitConsole;
 
 
+import java.util.Collection;
+
 import quizClasses.*;
 import quizDao.*;
 import quizDaoServices.*;
@@ -11,12 +13,12 @@ public class BootstrapUsersApp {
 		/*** DATABASE INIT METODE ***/
 		
 		UserService userService = new UserService(new UserDao());
-		/*QuestionService questionService = new QuestionService(new QuestionDao());
+		QuestionService questionService = new QuestionService(new QuestionDao());
 		//AnswerService answerService = new AnswerService(new AnswerDao());
 		QuizService quizService = new QuizService(new QuizDao());
 		RoleService roleService = new RoleService(new RoleDao());
 		ResultService resultService = new ResultService(new ResultDao());
-		*/
+		
 		/*** KREIRANJE KORISNIČKIH ULOGA ***/
 		
 		//Role admin = new Role();
@@ -79,13 +81,15 @@ public class BootstrapUsersApp {
 		/*** KREIRANJE KVIZA ***/
 		//Dodaje jedno pitanje sa 2 odgovora
 		
-		//Quiz quiz=new Quiz();
+		Quiz quiz=new Quiz();
 
 		//quiz.setQuizId(1);
-
-		/*quiz.setQuizName("Java");
+		Quiz quiz2=new Quiz();
+		quiz.setQuizName("Java");
+		quiz2.setQuizName("CSS");
 		
 		Question question = new Question();
+		Question question2 = new Question();
 		
 		//Ako nema pitanja u bazi
 		if(questionService.findAll().isEmpty()) {
@@ -107,10 +111,37 @@ public class BootstrapUsersApp {
 			questionService.create(question,answer1,answer2);
 				
 				
+					
+			//System.out.println(question.getQuestionId()+","+question.getQuestionText()+" "+answer1.getAnswer()+" "+answer2.getAnswer());
+				
+				
 			quizService.create(quiz, question);
 				
-		}	
-		*/
+		}
+	
+		Answer answer3=new Answer();
+		Answer answer4=new Answer();
+
+		question2.setAnsweredStatus(false);
+		question2.setQuestionPoints(10);
+		question2.setQuestionText("Volite li dizajnirati u CSS-u?");
+
+		
+		answer3.setAnswer("Da");
+		answer3.setCorrectStatus(true);
+		answer4.setAnswer("Ne");
+			
+		answer4.setCorrectStatus(false);
+		questionService.create(question2,answer3,answer4);
+			
+			
+		quizService.create(quiz2, question2);
+		/*Question q=questionService.findByText(question2.getQuestionText());
+		Collection<Answer>answers=q.getAnswers();
+		System.out.println(answers.size());
+		for(Answer a : answers){
+			System.out.println(a.getAnswer());
+		}*/
 		
 		
 		

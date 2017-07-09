@@ -69,6 +69,10 @@ public class ResultService {
 		public Collection<Result>getQuizResults(Quiz quiz){
 			return resultDao.getQuizResults(quiz);
 		}
+		public Result findByEmail(String email) {
+			// TODO Auto-generated method stub
+			return resultDao.findByEmail(email);
+		}
 		
 	}
 

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import quizClasses.User;
 import quizDao.UserDao;
@@ -30,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		if (request.getParameter("logout") != null) {
 			request.getSession().invalidate();
 		}
@@ -55,19 +56,23 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		if (messages.isEmpty()) {
-			System.out.println("User:" +username +", pass: "+password);
+			String usnm=username;
 
 			User user = userService.authenticate(username, password);
-			System.out.println(user != null);
+			//System.out.println(user != null);
 			if (user != null) {
 
 				if(!userService.checkIfLogged(user)){
 					request.getSession().setAttribute("user", user);
+					//System.out.println(usnm+" USNM");
 					userService.LogIn(user);
 					if(user.getRole().getRole().equals("common")){
+						HttpSession session= request.getSession();
+						session.setAttribute("username",usnm);
 						response.sendRedirect(request.getContextPath() + "/user/home");
 					}
 					else{
+						request.setAttribute("username", usnm);
 						response.sendRedirect(request.getContextPath() + "/admin/home");
 					}
 					return;

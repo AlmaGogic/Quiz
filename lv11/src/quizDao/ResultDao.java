@@ -54,7 +54,28 @@ final public class ResultDao extends AbstractDao {
 		}		
 		return null;
 	}
-	
+	public Result findByEmail(String email) {
+		EntityManager em = createEntityManager();
+		try {
+			Query q = em.createQuery("SELECT r FROM Result r");
+			Collection<Result> results=(Collection<Result>)q.getResultList();
+			for(Result result : results){
+				if(result.getEmail().equals(email)){
+					//System.out.println(result.getResultHash());
+					return result;
+				}
+			}
+			
+								
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+		} finally {		
+			if (em!= null) {
+				em.close();
+			}
+		}		
+		return null;
+	}
 	
 	public Result findById(int id) {
 		EntityManager em = createEntityManager();
