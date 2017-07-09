@@ -1,26 +1,10 @@
 package quizDao;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import quizClasses.Answer;
-import quizClasses.LoggedStatus;
-import quizClasses.Question;
-import quizClasses.Quiz;
-import quizClasses.Result;
-import quizClasses.Role;
-import quizClasses.User;
+import java.util.*;
+import javax.persistence.*;
+import quizClasses.*;
 
 final public class UserDao extends AbstractDao {
-	
-	public void UserDao() {
-		
-	}
 	
 	public List<User> findAll() {
 		EntityManager em = createEntityManager();
@@ -52,6 +36,7 @@ final public class UserDao extends AbstractDao {
 		return null;
 	}
 	
+	
 	public Result findUserResult(User user){
 		
 		EntityManager em = createEntityManager();
@@ -78,7 +63,7 @@ final public class UserDao extends AbstractDao {
 		
 		
 	}
-	public void logIn(User user){
+	public boolean logIn(User user){
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
 		
@@ -91,13 +76,18 @@ final public class UserDao extends AbstractDao {
 			user.setLogStatus(login);
 			em.merge(user);
 			em.merge(login);
+			em.getTransaction().commit();
+			em.close();
+			return true;
 		}
 		
-		
 		em.getTransaction().commit();
-		em.close();	
+		em.close();
+		return false;
+		
 	}
-	public void logOut(User user){
+	
+	public boolean logOut(User user){
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
 		
@@ -105,14 +95,40 @@ final public class UserDao extends AbstractDao {
 		if(logStatus!=null){
 			Collection<User>listOfUsers=logStatus.getLogInfo();
 			listOfUsers.remove(user);
-			
+			user.setLogStatus(null);
+			em.merge(user);
 			logStatus=em.merge(logStatus);
 			em.remove(logStatus);
+			em.getTransaction().commit();
+			em.close();	
+			return true;
 		}
 		em.getTransaction().commit();
 		em.close();	
-		
-	} 
+		return false;
+	}
+	
+	public boolean logOut(String username){
+		EntityManager em = createEntityManager();
+		em.getTransaction().begin();
+		User user = this.findByUsername(username);
+		LoggedStatus logStatus = user.getLogStatus();
+		System.out.println(user.getFirstName());
+		if(logStatus!=null){
+			Collection<User>listOfUsers=logStatus.getLogInfo();
+			listOfUsers.remove(user);
+			user.setLogStatus(null);
+			em.merge(user);
+			logStatus=em.merge(logStatus);
+			em.remove(logStatus);
+			em.getTransaction().commit();
+			em.close();	
+			return true;
+		}
+		em.getTransaction().commit();
+		em.close();	
+		return false;
+	}
 	
 	public void update(String username,User user) {
 		EntityManager em = createEntityManager();
@@ -255,11 +271,29 @@ final public class UserDao extends AbstractDao {
 			em.merge(retRole);
 			em.persist(user);
 		}
-		
-		
-		
+			
 		em.getTransaction().commit();
 		em.close();
 		
+	}
+
+	public boolean checkIfLogged(User user) {
+		EntityManager em = createEntityManager();
+		em.getTransaction().begin();
+		User temp=this.findByUsername(user.getUsername());
+		if(temp!=null){
+			LoggedStatus log=new LoggedStatus();
+			Query q = em.createQuery("SELECT l FROM LoggedStatus l");
+			Collection<LoggedStatus>logStats=(Collection<LoggedStatus>)q.getResultList();
+			for(LoggedStatus l : logStats){
+				Collection<User> loggedUsers=l.getLogInfo();
+				for(User u : loggedUsers){
+					if(u.getUsername().equals(temp.getUsername())){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

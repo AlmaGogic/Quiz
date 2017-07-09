@@ -1,7 +1,6 @@
 package quizDaoServices;
 
-import java.util.Collection;
-
+import java.util.*;
 import quizClasses.*;
 import quizDao.*;
 
@@ -69,6 +68,10 @@ public class ResultService {
 		//Pronalazi sve rezultate kviza
 		public Collection<Result>getQuizResults(Quiz quiz){
 			return resultDao.getQuizResults(quiz);
+		}
+		public Result findByEmail(String email) {
+			// TODO Auto-generated method stub
+			return resultDao.findByEmail(email);
 		}
 		
 	}

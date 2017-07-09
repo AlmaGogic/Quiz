@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+@import url("https://code.getmdl.io/1.3.0/material.grey-blue.min.css");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+
+  
+      
+    
+.demo-layout-transparent {
+  background: url('http://www.twitrcovers.com/wp-content/uploads/2013/02/Programming-Code-l.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+/*    --------------------------------------------------
+	:: Login Section
+	-------------------------------------------------- */
+#login {
+    padding-top: 50px
+}
+#login .form-wrap {
+    width: 30%;
+    margin: 0 auto;
+}
+.profile{
+	padding-left:380px;
+	width:650px;
+		
+}
+.buttons{
+	text-align:center;
+}
+.sr-only{
+    font-size: 25px;
+    }
+h4 {
+    color: #2bbbad;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+#login .form-group {
+    margin-bottom: 25px;
+}
+
+
+
+#login .btn.btn-custom {
+    font-size: 14px;
+	margin-bottom: 20px;
+}
+
+
+/*    --------------------------------------------------
+	:: Inputs & Buttons
+	-------------------------------------------------- */
+.form-control {
+    color: #212121;
+}
+.btn-custom {
+    color: #fff;
+	background-color: #1fa67b;
+}
+.btn-custom:hover,
+.btn-custom:focus {
+    color: #fff;
+}
+
+body {
+background-image: url("https://ak5.picdn.net/shutterstock/videos/8138515/thumb/1.jpg?i10c=img.resize(height:160)");
+    font-family: 'Open Sans', sans-serif!important;
+}
+
+
+.mdl-cell {
+  box-sizing: border-box;
+  background-color: #BDBDBD;
+  text-align:center;
+  height: 400px;
+  padding-left: 8px;
+  padding-top: 35px;
+  color: white;
+}
+.material-icons{
+	padding-top:10px;
+}
+.container { padding-top: 70px; margin-bottom:100px; }
+.mdl-grid:first-of-type .mdl-cell {
+  height: 100px;
+  width:300px;
+}
+
+span:hover {
+  font-weight: bold;
+}
+
+.results{
+	width:600px;
+	height:500px;
+	background-color: #BDBDBD;
+  text-align:center;
+  
+  padding-left: 8px;
+  padding-top: 35px;
+  color: white;
+}
+
+a:hover {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+main {
+	color: black;
+}

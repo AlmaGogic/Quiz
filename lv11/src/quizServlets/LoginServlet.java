@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import quizClasses.User;
 import quizDao.UserDao;
@@ -21,7 +22,7 @@ import quizDaoServices.UserService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
-	
+
 	public LoginServlet() {
 		super();
 		userService = new UserService(new UserDao());
@@ -30,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		if (request.getParameter("logout") != null) {
 			request.getSession().invalidate();
 		}
@@ -55,14 +56,32 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		if (messages.isEmpty()) {
+			String usnm=username;
 
 			User user = userService.authenticate(username, password);
-
+			//System.out.println(user != null);
 			if (user != null) {
-				request.getSession().setAttribute("user", user);
-			
-					response.sendRedirect(request.getContextPath() + "/admin/home");
+
+				if(!userService.checkIfLogged(user)){
+					request.getSession().setAttribute("user", user);
+					//System.out.println(usnm+" USNM");
+					userService.LogIn(user);
+					if(user.getRole().getRole().equals("common")){
+						HttpSession session= request.getSession();
+						session.setAttribute("username",usnm);
+						response.sendRedirect(request.getContextPath() + "/user/home");
+					}
+					else{
+						request.setAttribute("username", usnm);
+						response.sendRedirect(request.getContextPath() + "/admin/home");
+					}
 					return;
+				}
+				else{
+					userService.LogOut(user.getUsername());
+					messages.put("logged", "You are logged already! Trying to log you out!");
+				}
+				
 			} else {
 				messages.put("login", "Unknown login, please try again");
 			}

@@ -1,7 +1,6 @@
 package quizDaoServices;
 
 import java.util.*;
-
 import quizClasses.*;
 import quizDao.*;
 import quizSecurityUtil.*;
@@ -28,12 +27,15 @@ public class UserService {
 		return userDao.findByUsername(username);
 	}
 	
-	public void LogIn(User user){
-		userDao.logIn(user);
+	public boolean LogIn(User user){
+		return userDao.logIn(user);
 	}
 	
-	public void LogOut(User user){
-		userDao.logOut(user);
+	public boolean LogOut(User user){
+		return userDao.logOut(user);
+	}
+	public boolean LogOut(String username){
+		return userDao.logOut(username);
 	}
 	
 	public void update(String username,User user){
@@ -48,6 +50,10 @@ public class UserService {
 		userDao.changeUserRole(username, role);
 	}
 	
+	public boolean checkIfLogged(User user){
+		return userDao.checkIfLogged(user);
+	}
+	
 	public User authenticate(String username, String password) {
 		
 		User user = findByUsername(username);
@@ -55,9 +61,13 @@ public class UserService {
 		if (user == null) {
 			return null;
 		}
-		
-		if (SecurityUtil.checkPassword(password, user.getPassword())) {
-			user.setPassword("");
+		try{
+			if (SecurityUtil.checkPassword(password, user.getPassword())) {
+				//user.setPassword("");
+				return user;
+			}
+		}
+		catch(Exception e){
 			return user;
 		}
 		

@@ -1,6 +1,8 @@
 package quizInitConsole;
 
 
+import java.util.Collection;
+
 import quizClasses.*;
 import quizDao.*;
 import quizDaoServices.*;
@@ -19,12 +21,12 @@ public class BootstrapUsersApp {
 		
 		/*** KREIRANJE KORISNIČKIH ULOGA ***/
 		
-		Role admin = new Role();
-		Role editor = new Role();
-		Role common = new Role();
+		//Role admin = new Role();
+		//Role editor = new Role();
+		//Role common = new Role();
 	
 		//Collection<Role> users=roleService.findAll();
-		
+		/*
 	 	admin.setRole("admin");
 		editor.setRole("editor");
 		common.setRole("common");
@@ -32,10 +34,10 @@ public class BootstrapUsersApp {
 		roleService.create(admin);
 		roleService.create(editor);
 		roleService.create(common);
-
+*/
 
 		//System.out.println("U:"+(userService.findByUsername("dritchie")==null));
-		if (userService.findByUsername("dritchie") == null) {
+		/*if (userService.findByUsername("dritchie") == null) {
 			
 			User user = new User();
 			Role role =roleService.findByName("admin");
@@ -67,7 +69,7 @@ public class BootstrapUsersApp {
 			user.setPassword("fet.ba");
 
 			userService.create(user,role);
-		}
+		}*/
 		
 		/*Role role=new Role();
 		role.setRole("user");
@@ -82,9 +84,12 @@ public class BootstrapUsersApp {
 		Quiz quiz=new Quiz();
 
 		//quiz.setQuizId(1);
+		Quiz quiz2=new Quiz();
 		quiz.setQuizName("Java");
+		quiz2.setQuizName("CSS");
 		
 		Question question = new Question();
+		Question question2 = new Question();
 		
 		//Ako nema pitanja u bazi
 		if(questionService.findAll().isEmpty()) {
@@ -106,15 +111,42 @@ public class BootstrapUsersApp {
 			questionService.create(question,answer1,answer2);
 				
 				
+					
+			//System.out.println(question.getQuestionId()+","+question.getQuestionText()+" "+answer1.getAnswer()+" "+answer2.getAnswer());
+				
+				
 			quizService.create(quiz, question);
 				
-		}	
+		}
+	
+		Answer answer3=new Answer();
+		Answer answer4=new Answer();
+
+		question2.setAnsweredStatus(false);
+		question2.setQuestionPoints(10);
+		question2.setQuestionText("Volite li dizajnirati u CSS-u?");
+
 		
+		answer3.setAnswer("Da");
+		answer3.setCorrectStatus(true);
+		answer4.setAnswer("Ne");
+			
+		answer4.setCorrectStatus(false);
+		questionService.create(question2,answer3,answer4);
+			
+			
+		quizService.create(quiz2, question2);
+		/*Question q=questionService.findByText(question2.getQuestionText());
+		Collection<Answer>answers=q.getAnswers();
+		System.out.println(answers.size());
+		for(Answer a : answers){
+			System.out.println(a.getAnswer());
+		}*/
 		
 		
 		
 		/*** KREIRANJE NOVOG PITANJA I DODAVANJE U POSTOJEĆI KVIZ ***/
-		if(questionService.findByText("Volite li programirati u c?")==null) {
+		/*if(questionService.findByText("Volite li programirati u c?")==null) {
 		Answer answer3=new Answer();
 		Answer answer4=new Answer();
 				
@@ -131,14 +163,14 @@ public class BootstrapUsersApp {
 
 
 		questionService.create(question,answer3,answer4);
-		
+		*/
 
 		//System.out.println(quiz+"  "+question);
 		
-		quizService.add(quiz,question);
-		}
+		/*quizService.add(quiz,question);
+		}*/
 		/*** KREIRANJE REZULTATA I VEZANJE ZA KVIZ I KORISNIKA ***/
-		Result result= new Result();
+		/*Result result= new Result();
 
 		User user=userService.findByUsername("dritchie");
 		result.setUser(user);
@@ -149,14 +181,15 @@ public class BootstrapUsersApp {
 		Result res=new Result();
 		res.setFirstName("Ime");
 		res.setUser(user);
-		
+		*/
 		/*** MIJENJANJE ULOGE KORISNIKA ***/
 		//userService.changeRole(user.getUsername(), "common");
 		
 		/*** LOGIN I LOGOUT ***/
 		//userService.LogIn(user);
-		//userService.LogOut(user);
-
+		/*User  user = userService.findByUsername("g");
+		userService.LogOut(user);
+*/
 		/*** MANIPULACIJA REZULTATOM ***/
 		
 		//resultService.update(result,res);
@@ -177,13 +210,13 @@ public class BootstrapUsersApp {
 		
 		
 		/*** MANIPULACIJA PITANJIMA (KO FOL RADI :-D) ***/
-		Question foundQuestion = questionService.findByText("Volite li programirati u c?");
+		//Question foundQuestion = questionService.findByText("Volite li programirati u c?");
 		/*Answer answer=new Answer();
 		answer.setAnswer("Mozda");
 		answer.setCorrectStatus(true);
 		*/
 		
-		if(foundQuestion!=null){
+		//if(foundQuestion!=null){
 			
 			//answer.addToQuestion(foundQuestion);
 			//foundQuestion.addAnswer(answer);
@@ -202,6 +235,6 @@ public class BootstrapUsersApp {
 			for(Answer a : answers){
 				System.out.println(a.getAnswer());
 			}*/
-		}
+		//}
 	}
 }

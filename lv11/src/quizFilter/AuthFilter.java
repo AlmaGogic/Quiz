@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import quizClasses.User;
+import quizDao.UserDao;
+import quizDaoServices.UserService;
+
 /**
  * Servlet Filter implementation class AuthFilter
  */
@@ -43,8 +47,9 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
         String loginURI = request.getContextPath() + "/login";
-
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        UserService userService= new UserService(new UserDao());
+        
+        boolean loggedIn = userService.checkIfLogged((User)session.getAttribute("user"));
         boolean loginRequest = request.getRequestURI().equals(loginURI);
         
         if (loggedIn || loginRequest) {

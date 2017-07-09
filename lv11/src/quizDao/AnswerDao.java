@@ -1,19 +1,12 @@
 package quizDao;
 
 import java.util.*;
-
 import javax.persistence.*;
-
 import quizClasses.*;
 
 
 final public class AnswerDao extends AbstractDao {
-	
-	
-		
-		public AnswerDao() {
-			
-		}
+
 		
 		public Collection<Answer> findAllAnswers() {
 			EntityManager em = createEntityManager();
@@ -23,8 +16,6 @@ final public class AnswerDao extends AbstractDao {
 			return resultList;
 		}
 		
-		
-		
 		public ArrayList<Answer> findByText(String text) {
 			EntityManager em = createEntityManager();
 			try {
@@ -32,6 +23,7 @@ final public class AnswerDao extends AbstractDao {
 				ArrayList<Answer> answers;
 				
 				answers=new ArrayList<Answer>((Collection<Answer>)q.getResultList());
+
 				
 				return answers;					
 			} catch (RuntimeException e) {
@@ -87,13 +79,9 @@ final public class AnswerDao extends AbstractDao {
 						//currentAnswer.addToQuestion(q1);
 						//q1.addAnswer(currentAnswer);
 						em.merge(currentAnswer);
-						
-					
 						break;
 					}
 				}
-			
-			
 			}
 			
 			em.getTransaction().commit();
@@ -114,4 +102,3 @@ final public class AnswerDao extends AbstractDao {
 		}
 		
 	}
-
