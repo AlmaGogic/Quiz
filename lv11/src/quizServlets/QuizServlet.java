@@ -79,7 +79,6 @@ public class QuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("post");
 		
 		String req = request.getParameter("req");
 		
@@ -91,16 +90,13 @@ public class QuizServlet extends HttpServlet {
 				questionService.clearQuestion(question);
 				questionService.deleteQuestion(question);
 			}else if(req.equals("removeAnswer")){
-				System.out.println("removingAnswer");
+			
 				Question question = questionService.findByText(request.getParameter("question"));
 				ArrayList<Answer> answers = answerService.findByText(request.getParameter("answer"));
 				Answer ans = null;
 				
-				System.out.println(answers.get(0).getAnswer());
-				
 				ArrayList<Answer> qAnswers = new ArrayList<Answer>(question.getAnswers());
 				for(int i = 0; i < qAnswers.size(); i++){
-					System.out.println(qAnswers.get(i).getAnswer());
 					
 					if(qAnswers.get(i).getAnswer().equals(answers.get(0).getAnswer())){
 						ans= qAnswers.get(i);
@@ -112,7 +108,8 @@ public class QuizServlet extends HttpServlet {
 				
 				answerService.deleteAnswer(ans);
 			}
-			
+		}else{
+		
 			String qTxt = request.getParameter("qTxt");
 			String aTxt1 = request.getParameter("aTxt1");
 			String aTxt2 = request.getParameter("aTxt2");
@@ -139,6 +136,7 @@ public class QuizServlet extends HttpServlet {
 				questionService.create(q,answer1,answer2);
 					
 				quizService.add(quiz,q);
+				System.out.println("dodano pitanje");
 				
 			}else if(questionService.findByText(qTxt)==null) {
 			Answer answer3=new Answer();
@@ -159,11 +157,11 @@ public class QuizServlet extends HttpServlet {
 			questionService.create(q,answer3,answer4);
 			
 			quizService.add(quiz,q);
+			System.out.println("ubaceno");
 			}
 		}
-		
-		request.setAttribute("name", name);
-		doGet(request,response);
+		System.out.println("izaz iz post");
+		doGet(request, response);
 	}
 	
 	public synchronized HashMap<String, ArrayList<String>> getMsg(){

@@ -20,6 +20,11 @@
     padding-left: 15px;
 }
 
+.mdl-textfield {
+	 background: #4cc47c;
+	 border-radius: 25px;
+}
+
 a:hover {
   font-size: 17px;
   font-weight: bold;
@@ -75,17 +80,21 @@ a:hover {
    			<div class="page-content" id="container" style="padding-left:100px;">Welcome, here you can edit Quizzes!
    			<div id="questions" class="ques"></div>
    			
-   			<form action="admin/quiz" method="post">  
+   			<form action="quiz" method="post">  
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 		               <input class="mdl-textfield__input" type="text" id="qTxt" name="qTxt">
 		               <label class="mdl-textfield__label" for="qTxt">Question: </label>
 		    </div>
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		               <input class="mdl-textfield__input" type="text" id="aTxt" name="aTxt">
-		               <label class="mdl-textfield__label" for="password">Answer: </label>
+		               <input class="mdl-textfield__input" type="text" id="aTxt1" name="aTxt1">
+		               <label class="mdl-textfield__label" for="aTxt1">Answer1: </label>
+		    </div> 
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		               <input class="mdl-textfield__input" type="text" id="aTxt2" name="aTxt2">
+		               <label class="mdl-textfield__label" for="aTxt2">Answer2: </label>
 		    </div> 
 		      
-		    <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value = "admin/quiz">
+		    <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value = "Add">
 		     
 		    </form>  
    			

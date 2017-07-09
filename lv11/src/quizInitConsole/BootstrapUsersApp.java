@@ -21,12 +21,12 @@ public class BootstrapUsersApp {
 		
 		/*** KREIRANJE KORISNIČKIH ULOGA ***/
 		
-		//Role admin = new Role();
-		//Role editor = new Role();
-		//Role common = new Role();
+		Role admin = new Role();
+		Role editor = new Role();
+		Role common = new Role();
 	
-		//Collection<Role> users=roleService.findAll();
-		/*
+		Collection<Role> users=roleService.findAll();
+		
 	 	admin.setRole("admin");
 		editor.setRole("editor");
 		common.setRole("common");
@@ -34,10 +34,10 @@ public class BootstrapUsersApp {
 		roleService.create(admin);
 		roleService.create(editor);
 		roleService.create(common);
-*/
+
 
 		//System.out.println("U:"+(userService.findByUsername("dritchie")==null));
-		/*if (userService.findByUsername("dritchie") == null) {
+		if (userService.findByUsername("dritchie") == null) {
 			
 			User user = new User();
 			Role role =roleService.findByName("admin");
@@ -69,7 +69,7 @@ public class BootstrapUsersApp {
 			user.setPassword("fet.ba");
 
 			userService.create(user,role);
-		}*/
+		}
 		
 		/*Role role=new Role();
 		role.setRole("user");
