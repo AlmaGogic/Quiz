@@ -27,7 +27,7 @@ final public class QuizDao extends AbstractDao {
 	
 	public int numberOfQuestions(Quiz quiz){
 		EntityManager em = createEntityManager();
-		Quiz retQuiz=this.findByName(quiz.getQuizName()).iterator().next();
+		Quiz retQuiz=this.findByName(quiz.getQuizName());
 		int size=0;
 		if(retQuiz!=null){
 			Collection<Question>questions=retQuiz.getQuestions();
@@ -38,11 +38,11 @@ final public class QuizDao extends AbstractDao {
 		return size;
 	}
 	
-	public Collection<Quiz> findByName(String name) {
+	public Quiz findByName(String name) {
 		EntityManager em = createEntityManager();
 		try {
 			Query q = em.createQuery("SELECT q FROM Quiz q WHERE q.quizName = :name").setParameter("name", name);
-			Collection<Quiz> quiz = (Collection<Quiz>) q.getResultList();
+			Quiz quiz = (Quiz) q.getSingleResult();
 			return quiz;					
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
@@ -177,7 +177,8 @@ final public class QuizDao extends AbstractDao {
 	public void update(String quizName, Quiz quiz,boolean delete) {
 		EntityManager em = createEntityManager();
 		em.getTransaction().begin();
-		Collection<Quiz> quizzes= this.findByName(quizName);
+		Collection<Quiz> quizzes = null;
+		quizzes.add(findByName(quizName));
 		
 		if(!quizzes.isEmpty()){
 			Quiz currentQuiz=quizzes.iterator().next();
