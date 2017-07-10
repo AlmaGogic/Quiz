@@ -11,19 +11,17 @@ final public class AnswerDao extends AbstractDao {
 		public Collection<Answer> findAllAnswers() {
 			EntityManager em = createEntityManager();
 			Query q = em.createQuery("SELECT a FROM Answer a");
-			Collection<Answer> resultList = (Collection<Answer>) q.getResultList();
+			Collection<Answer> resultList = q.getResultList();
 			em.close();
 			return resultList;
 		}
 		
-		public ArrayList<Answer> findByText(String text) {
+		public Collection<Answer> findByText(String text) {
 			EntityManager em = createEntityManager();
 			try {
 				Query q = em.createQuery("SELECT a FROM Answer a WHERE a.text = :text").setParameter("text", text);
-				ArrayList<Answer> answers;
-				
-				answers=new ArrayList<Answer>((Collection<Answer>)q.getResultList());
-
+				Collection<Answer> answers = new ArrayList<Answer>();
+				answers=(Collection<Answer>)q.getResultList();
 				
 				return answers;					
 			} catch (RuntimeException e) {
