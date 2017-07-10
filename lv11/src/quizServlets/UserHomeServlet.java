@@ -76,7 +76,7 @@ public class UserHomeServlet extends HttpServlet {
 				request.setAttribute("task", "search");
 			}
 			else{
-				Collection<Quiz>quiz=quizService.findByName(search);
+				Collection<Quiz>quiz=(Collection<Quiz>) quizService.findByName(search);
 				System.out.println(quiz.size());
 				request.setAttribute("quizzes", quiz);
 				request.setAttribute("task", "search");
