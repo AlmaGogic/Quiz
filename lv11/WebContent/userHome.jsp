@@ -1,14 +1,20 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="quizClasses.Quiz" %>
+
+<%@ page import="quizClasses.Answer" %>
+<%@ page import="quizClasses.Question" %>
 <%@ page import="quizClasses.Result" %>
 
 <html>
 <head>
       <title>Quiz User Home</title>
       <meta charset="utf-8">
+      
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
       <link rel="stylesheet" type="text/css" href="../userHomeStyle.css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
       <script src="../userHomeJS.js"></script>
 </head>
 
@@ -24,17 +30,18 @@
       
             
             <!-- start search form -->
-            
+            <div class="search">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" id="searchClick" for="search-expandable">
                     <i class="material-icons">search</i>
                 </label>
                 <form action="" method="GET">
                 <div class="mdl-textfield__expandable-holder">
-                    <input class="mdl-textfield__input" type="text" name="search" id="search-expandable" />
+                    <input class="mdl-textfield__input" type="text" name="search"  placeholder="Search for a quiz: " id="search-expandable" />
                     <label class="mdl-textfield__label" for="search-expandable">Search text</label>
                 </div>
                 </form>
+            </div>
             </div>
             <!-- end search form -->
             
@@ -46,17 +53,80 @@
   
  <% 
  String task=(String)request.getAttribute("task");
+ String currentQuiz=(String)request.getAttribute("quiz");
+ if(currentQuiz!=null){
+
+	 %>
+	 
+	 
+<div class="container">
+    <div class="well" id="quiz">
+      <h1><%=currentQuiz %> Trivia</h1>
+      
+    <div class="wrapper"><div class="cor"><div class="text">Correcty answered on:</div><div class="correct"id="correct">0</div> <div class=text>questions</div></div>
+    <div class="pts"><div class="text">Total points:</div> <div id="points">0</div></div></div>
+      
+      <div id="parent">
+        <%
+        Collection<Question> unanswered=(Collection<Question>)request.getAttribute("unanswered");
+        int i=0;
+        for(Question qst : unanswered){
+        	
+        	%><div class="questions" id="<%=qst.getQuestionText() %>">
+        	<%= qst.getQuestionText()%>  
+	        
+	      <% 
+	      Collection<Answer>answers=qst.getAnswers();%>
+	      <div class="answers">
+	      <%
+	      for(Answer a : answers){
+	    	  
+	    	  %><div class="answer" id='<%=a.getAnswer()+i %>' onclick="correct('<%=request.getAttribute("quiz") %>','<%=qst.getQuestionText() %>','<%=a.getAnswer()+i %>','<%=a.getCorrectStatus() %>','<%=qst.getQuestionPoints() %>')">
+	    	  <%i++;%><%=a.getAnswer() %>
+	    </div><%
+	      }
+	      %></div></div><%
+        }
+        %>
+
+   </div>
+   </div>
+    </div>
+
+
+
+
+
+
+
+
+	 
+	 <%
+ }
  if(task!=null){
 	if(task.equals("search")){
  		Collection<Quiz> quizzes= (Collection<Quiz>)request.getAttribute("quizzes");
+ 		Collection<Result> results= (Collection<Result>)request.getAttribute("results");
+ 		
  		int i=0;
+ 		boolean show=true;
+ 		String name="";
      	for(Quiz quiz: quizzes){
+     		for(Result r :results){
+     			if(r.getQuiz().getQuizName().equals(quiz.getQuizName())){
+     				show=false;
+     				name=r.getQuiz().getQuizName();
+     				break;
+     			}
+     		}
+     		
  		%>
-    	<div class="mdl-cell mdl-cell--4-col">
+    	<div class="mdl-cell mdl-cell--4-col" onclick="loadQuiz('<%=quiz.getQuizName()%>')">
       	<%=quiz.getQuizName() %>
       	</div>
       
  		<%
+     		
      	}
  	}
 	else if(task.equals("profile")){
@@ -128,24 +198,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            
             <%
             
             Collection<Result> listresults= (Collection<Result>)request.getAttribute("results");
- 		int i=0;
+ 		
      	for(Result result: listresults){
  		%>
+ 		            <tr>
 			<td><%= result.getFirstName() %></td>
             <td><%= result.getLastName() %></td>
             <td><%= result.getQuiz().getQuizName() %></td>
             <td><%= result.getTotalPoints() %></td>
-            
+                  </tr>      
       
  		<%
      	}%>
             	
                 
-            </tr>
+
             
         </tbody>
     </table>
