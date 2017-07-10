@@ -21,12 +21,12 @@ public class BootstrapUsersApp {
 		
 		/*** KREIRANJE KORISNIČKIH ULOGA ***/
 		
-		Role admin = new Role();
-		Role editor = new Role();
-		Role common = new Role();
+		//Role admin = new Role();
+		//Role editor = new Role();
+		//Role common = new Role();
 	
-		Collection<Role> users=roleService.findAll();
-		
+		//Collection<Role> users=roleService.findAll();
+		/*
 	 	admin.setRole("admin");
 		editor.setRole("editor");
 		common.setRole("common");
@@ -34,10 +34,10 @@ public class BootstrapUsersApp {
 		roleService.create(admin);
 		roleService.create(editor);
 		roleService.create(common);
-
+*/
 
 		//System.out.println("U:"+(userService.findByUsername("dritchie")==null));
-		if (userService.findByUsername("dritchie") == null) {
+		/*if (userService.findByUsername("dritchie") == null) {
 			
 			User user = new User();
 			Role role =roleService.findByName("admin");
@@ -69,7 +69,7 @@ public class BootstrapUsersApp {
 			user.setPassword("fet.ba");
 
 			userService.create(user,role);
-		}
+		}*/
 		
 		/*Role role=new Role();
 		role.setRole("user");
@@ -124,7 +124,7 @@ public class BootstrapUsersApp {
 
 		question2.setAnsweredStatus(false);
 		question2.setQuestionPoints(10);
-		question2.setQuestionText("Volite li dizajnirati u CSS-u?");
+		question2.setQuestionText("Volite li studirati na FET-u?");
 
 		
 		answer3.setAnswer("Da");
@@ -135,7 +135,7 @@ public class BootstrapUsersApp {
 		questionService.create(question2,answer3,answer4);
 			
 			
-		quizService.create(quiz2, question2);
+		quizService.create(quiz, question2);
 		/*Question q=questionService.findByText(question2.getQuestionText());
 		Collection<Answer>answers=q.getAnswers();
 		System.out.println(answers.size());

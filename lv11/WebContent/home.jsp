@@ -56,8 +56,8 @@ main {
       <nav class="mdl-navigation">
         <span class="mdl-badge" data-badge="4">Inbox</span>
         <a class="mdl-navigation__link" href="home">Quiz list</a>
-        <a class="mdl-navigation__link" href="users">Users</a>
-        <a class="mdl-navigation__link" href="/RWAProjekat-Quiz/login">Log out</a>
+        <a class="mdl-navigation__link" href="">Users</a>
+        <a class="mdl-navigation__link" href="">Log out</a>
       </nav>
     </div>
   </header>
@@ -65,9 +65,9 @@ main {
     <span class="mdl-layout-title">Editing</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="home">Quiz list</a>
-      <a class="mdl-navigation__link" href="users">Users</a>
+      <a class="mdl-navigation__link" href="">Users</a>
       <a class="mdl-navigation__link" href="">Inbox</a>
-      <a class="mdl-navigation__link" href="/RWAProjekat-Quiz/login">Log out</a>
+      <a class="mdl-navigation__link" href="">Log out</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -78,8 +78,16 @@ main {
 </div>
      
 <script type="text/javascript">
-	function editQuiz(qName){
-		 document.location.href = "quiz?name=" + qName;	
+	function editJava(){
+		var container = document.getElementById("container");
+		var oldDiv = document.getElementById("quiz");
+		
+		var newDiv = document.createElement("div");
+		newDiv.innerHTML = "";
+		newDiv.setAttribute("class", "mdl-grid");
+		newDiv.setAttribute("id", "Java");
+		
+		container.replaceChild(newDiv, oldDiv);
 	}
 	
 		document.getElementById("quiz").innerHTML = "";
@@ -89,8 +97,9 @@ main {
 			if (p.hasOwnProperty(key)) {
 				var sdiv = document.createElement("div");
 				sdiv.setAttribute("class", "mdl-cell mdl-cell--4-col");
-				sdiv.setAttribute("onclick", "editQuiz('" + key + "')");
+				sdiv.setAttribute("onclick", "edit" + key + "()");
 				var url = p[key];
+				console.log(url);
 				sdiv.style.backgroundImage = "url(" + url + ")";
 				sdiv.setAttribute("id", key);
 				document.getElementById("quiz").appendChild(sdiv);

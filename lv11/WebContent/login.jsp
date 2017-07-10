@@ -31,16 +31,16 @@
 
             <div class='row'>
               <div class='input-field col s12'>
-               
+                <input class="validate" type="text" id="username" name="username">
                <label  for="username">Username: </label>
-   				 <input class="validate" type="text" id="username" name="username">
+   
               </div>
             </div>
 
             <div class='row'>
               <div class='input-field col s12'>
+                <input class='validate' type='password' name='password' id='password' />
                 <label for='password'>Enter your password:</label>
-       			<input class='validate' type='password' name='password' id='password' />
               </div>
             </div>
 
