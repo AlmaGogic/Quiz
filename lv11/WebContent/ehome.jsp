@@ -37,7 +37,7 @@ main {
 
 <html>
 <head>
-      <title>Quiz Admin</title>
+      <title>Quiz Editor</title>
       <meta charset="utf-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.brown-deep_orange.min.css">
@@ -55,8 +55,7 @@ main {
       <!-- Navigation -->
       <nav class="mdl-navigation">
         <span class="mdl-badge" data-badge="4">Inbox</span>
-        <a class="mdl-navigation__link" href="home">Quiz list</a>
-        <a class="mdl-navigation__link" href="users">Users</a>
+        <a class="mdl-navigation__link" href="editorHome">Quiz list</a>
         <a class="mdl-navigation__link" href="/RWAProjekat-Quiz/login">Log out</a>
       </nav>
     </div>
@@ -64,8 +63,7 @@ main {
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Editing</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="home">Quiz list</a>
-      <a class="mdl-navigation__link" href="users">Users</a>
+      <a class="mdl-navigation__link" href="editorHome">Quiz list</a>
       <a class="mdl-navigation__link" href="">Inbox</a>
       <a class="mdl-navigation__link" href="/RWAProjekat-Quiz/login">Log out</a>
     </nav>

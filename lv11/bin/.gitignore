@@ -1,7 +1,4 @@
-/quizClasses/
+/quizServlets/
 /quizDao/
 /quizDaoServices/
-/quizSecurityUtil/
-/quizFilter/
 /quizInitConsole/
-/quizServlets/

@@ -73,9 +73,4 @@ public class UserService {
 		
 		return null;
 	}
-
-	public Collection<Question> findUnanswered(User user, Quiz quiz) {
-		return userDao.findUnanswered(user,quiz);
-		
-	}
 }

@@ -26,10 +26,10 @@ public class QuizService {
 			return quizDao.findAll();
 		}
 		//Nađi kviz po imenu
-		public Collection<Quiz> findByName(String name){
+		public Quiz findByName(String name){
 			return quizDao.findByName(name);
 		}
-		public Quiz findOneByName(String name){
+	/*	public Quiz findOneByName(String name){
 			Collection<Quiz> quizzes=quizDao.findByName(name);
 			Quiz quiz = new Quiz();
 			try{
@@ -40,7 +40,7 @@ public class QuizService {
 				System.out.println(e.getMessage());
 			}
 			return quiz;
-		}
+		}*/
 		//Nađi kviz po id-u
 		public Quiz findById(int quizId){
 			return quizDao.findById(quizId);

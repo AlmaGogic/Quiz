@@ -23,7 +23,7 @@ public class AnswerService {
 			return answerDao.findAllAnswers();
 		}
 		
-		public Collection<Answer> findByText(String text) {
+		public ArrayList<Answer> findByText(String text) {
 			return answerDao.findByText(text);
 		}
 		

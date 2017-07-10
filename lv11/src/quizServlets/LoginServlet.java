@@ -71,9 +71,12 @@ public class LoginServlet extends HttpServlet {
 						session.setAttribute("username",usnm);
 						response.sendRedirect(request.getContextPath() + "/user/home");
 					}
-					else{
+					else if(user.getRole().getRole().equals("admin")){
 						request.setAttribute("username", usnm);
 						response.sendRedirect(request.getContextPath() + "/admin/home");
+					}else{
+						request.setAttribute("username", usnm);
+						response.sendRedirect(request.getContextPath() + "/admin/editorHome");
 					}
 					return;
 				}

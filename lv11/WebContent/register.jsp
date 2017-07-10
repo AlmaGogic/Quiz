@@ -30,7 +30,7 @@
 
 			<div class='row'>
               <div class='input-field col s12'>
-                <input class="validate" type="text" id="firstname" name="firstname" >
+                <input class="validate" type="text" id="firstname" name="firstname">
                <label  for="firstname">First name: </label>
    
               </div>
@@ -45,7 +45,7 @@
 			
 			<div class='row'>
               <div class='input-field col s12'>
-                <input class="validate" type="email" id="email" name="email">
+                <input class="validate" type="text" id="email" name="email">
                <label  for="email">Email: </label>
    
               </div>

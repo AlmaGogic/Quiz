@@ -3,7 +3,6 @@ package quizDao;
 import java.util.*;
 import javax.persistence.*;
 import quizClasses.*;
-import quizDaoServices.QuizService;
 
 final public class UserDao extends AbstractDao {
 	
@@ -296,33 +295,5 @@ final public class UserDao extends AbstractDao {
 			}
 		}
 		return false;
-	}
-
-	public Collection<Question> findUnanswered(User user, Quiz quiz) {
-		EntityManager em = createEntityManager();
-		User u=this.findByUsername(user.getUsername());
-		Collection<Result>results=u.getUserResults();
-		Collection<Question>unansweredQuestions=new ArrayList<Question>();
-		if(results!=null&&!results.isEmpty()){
-			for(Result result : results){
-				
-				if(result.getQuiz().getQuizName().equals(quiz.getQuizName())){
-					for(Question q : result.getQuiz().getQuestions()){
-						if(!q.getAnsweredStatus()){
-							unansweredQuestions.add(q);
-						}
-					}
-					break;
-				}
-			}
-		}
-		else{
-			QuizService quizService=new QuizService(new QuizDao());
-			Quiz qz=quizService.findOneByName(quiz.getQuizName());
-			unansweredQuestions=qz.getQuestions();
-			System.out.println(qz.getQuestions().size()+"DAO");
-		}
-		em.close();
-		return unansweredQuestions;
 	}
 }

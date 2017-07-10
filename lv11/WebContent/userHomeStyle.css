@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
 
+
   
       
     
@@ -108,138 +109,6 @@ span:hover {
   padding-left: 8px;
   padding-top: 35px;
   color: white;
-}
-
-.mdl-textfield__input, .mdl-textfield__label{
-	padding-top:10px
-}
-.search{
-	padding-top:5px;
-}
-
-.mdl-cell:hover{
-	-webkit-transform: scale(0.8);
-        -ms-transform: scale(0.8);
-        transform: scale(0.8);	
-}
-
-.container {
- 	margin: 0 auto;
- 	height: 100%;
-  	padding-top: 0px;
-}
-
-.well {
-	border: none;
-	padding: 0;
-	margin: 0 auto;
-}
- #quiz {
-  background: #050505;
-  opacity: .75;
-  filter: alpha(opacity=75);
-  padding-bottom: 45px;
-  width: 800px;
-  color: #fff;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-
-#quiz > h1 {
-  font-family: 'Pathway Gothic One', sans-serif;
-  text-align: center;
-  padding-top: 25px;
-  font-size: 40px;
-  opacity: .6;
-}
-
-.questions {
-  font-size: 32px;
-  font-weight: 700;
-  font-family: 'Pathway Gothic One';
-  border-bottom: 1px solid grey;
-  padding: 20px;
-}
-
-.answers div {
-  padding:  0;
-  font-size: 16px;
-  margin: 0 auto;
-  padding-bottom: 15px;
-  padding-top:30px;
-}
-
-.answers div:hover {
-  cursor: pointer;
-  color: #FBCB43;
-}
-.wrapper{
-	width:650px;
-}
-.gameOver{
-	display:none;
-  font-family: 'Pathway Gothic One', sans-serif;
-  text-align: center;
-  padding-top: 25px;
-  font-size: 40px;
-  opacity: .6;
-
-}
-.answers {
-  padding: 0px 0 10px 0px;
-}
-.answers:hover{
-	color:yellow;
-}
-.visibility {
-    transition: opacity 3s ease-out;
-    opacity: 0;
-    overflow: hidden;
-}
-.cor{
-	padding-top:10px;
-	width:500px;
-	float:left;
-	margin-left:-120px;
-}
-.pts{
-	padding-top:10px;
-	width:100px;
-	float:right;
-	margin-right:-120px;
-}
-.wrapper:after {
-    content: '';
-    display: block;
-    clear: both;
-}
-.correct{
-	display:inline;
-}
-.points{
-	display:inline;
-}
-.text{
-	display:inline;
-}
-.slct{
-	-webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.answers div:first-child {
-  border: none;
-}
-
-.checkAnswers h3 {
-	font-family: 'Pathway Gothic One', sans-serif;
-	opacity: .8;
-	filter: alpha(opacity=80);
-	font-size: 20px;
 }
 
 a:hover {
