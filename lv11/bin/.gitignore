@@ -1,6 +1,6 @@
-/quizServlets/
-<<<<<<< HEAD
-/quizDaoServices/
 /quizDao/
-=======
->>>>>>> 02f19d75c33b9fd273fd0deabf0ee84f6db62094
+/quizDaoServices/
+/quizFilter/
+/quizInitConsole/
+/quizSecurityUtil/
+/quizServlets/
