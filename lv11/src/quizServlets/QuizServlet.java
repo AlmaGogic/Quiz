@@ -71,6 +71,7 @@ public class QuizServlet extends HttpServlet {
 			message.put(questions.get(i).getQuestionText(), answer);
 		}
 		
+		request.setAttribute("name", name);
 		request.setAttribute("questions", gson.toJson(getMsg()));
 		request.getRequestDispatcher("/quiz.jsp").forward(request, response);
 	}
@@ -81,7 +82,8 @@ public class QuizServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String req = request.getParameter("req");
-		
+		name = request.getParameter("name");
+		System.out.println(name);
 		
 		if(req != null){
 			if(req.equals("removeQuestion")){
@@ -113,7 +115,14 @@ public class QuizServlet extends HttpServlet {
 			String qTxt = request.getParameter("qTxt");
 			String aTxt1 = request.getParameter("aTxt1");
 			String aTxt2 = request.getParameter("aTxt2");
-
+			String aTxt3 = request.getParameter("aTxt3");
+			String aTxt4 = request.getParameter("aTxt4");
+			String[] check1 = request.getParameterValues("ans1");
+			String[] check2 = request.getParameterValues("ans2");
+			String[] check3 = request.getParameterValues("ans3");
+			String[] check4 = request.getParameterValues("ans4");
+			int brbod = Integer.parseInt(request.getParameter("bod"));
+			
 			Question q = new Question();
 			Quiz quiz = quizService.findByName(name);
 			
@@ -122,39 +131,109 @@ public class QuizServlet extends HttpServlet {
 					
 				Answer answer1=new Answer();
 				Answer answer2=new Answer();
+				Answer answer3=new Answer();
+				Answer answer4=new Answer();
 						
 				q.setQuestionId(0);
 				q.setAnsweredStatus(false);
-				q.setQuestionPoints(10);
+				q.setQuestionPoints(brbod);
 				q.setQuestionText(qTxt);
 					
 				answer1.setAnswer(aTxt1);
-				answer1.setCorrectStatus(true);
 				answer2.setAnswer(aTxt2);
-					
-				answer2.setCorrectStatus(false);
+				answer3.setAnswer(aTxt3);
+				answer4.setAnswer(aTxt4);
+				
+				if(check1 != null){
+					for(String s : check1){
+						   if(s.equals("on"))
+							   answer1.setCorrectStatus(true);
+					}
+				}else
+					   answer1.setCorrectStatus(false);
+				
+				
+				if(check2 != null){
+					for(String s : check2){
+						   if(s.equals("on"))
+							   answer2.setCorrectStatus(true);
+					}
+				}else
+					   answer2.setCorrectStatus(false);
+				
+				if(check3 != null){
+					for(String s : check3){
+						   if(s.equals("on"))
+							   answer3.setCorrectStatus(true);
+					}
+				}else
+					   answer3.setCorrectStatus(false);
+				
+				if(check4 != null){
+					for(String s : check4){
+						   if(s.equals("on"))
+							   answer4.setCorrectStatus(true);
+					}
+				}else
+					   answer4.setCorrectStatus(false);
+
+				
 				questionService.create(q,answer1,answer2);
-					
+				questionService.add(q, answer3);
+				questionService.add(q, answer4);
 				quizService.add(quiz,q);
 				System.out.println("dodano pitanje");
 				
 			}else if(questionService.findByText(qTxt)==null) {
-			Answer answer3=new Answer();
-			Answer answer4=new Answer();
+			Answer answer5=new Answer();
+			Answer answer6=new Answer();
+			Answer answer7=new Answer();
+			Answer answer8=new Answer();
 					
 			q.setAnsweredStatus(false);
-			q.setQuestionPoints(10);
+			q.setQuestionPoints(brbod);
 			q.setQuestionText(qTxt);
-			System.out.println(q.getQuestionId()+","+q.getQuestionText()+" "+answer3.getAnswer()+" "+answer4.getAnswer());
 				
-			answer3.setAnswer(aTxt1);
-			answer3.setCorrectStatus(true);
-			answer4.setAnswer(aTxt2);
+			answer5.setAnswer(aTxt1);
+			answer6.setAnswer(aTxt2);
+			answer7.setAnswer(aTxt1);
+			answer8.setAnswer(aTxt2);
+			
+			if(check1 != null){
+				for(String s : check1){
+					   if(s.equals("on"))
+						   answer5.setCorrectStatus(true);
+				}
+			}else
+				   answer5.setCorrectStatus(false);
+			
+			if(check2 != null){
+				for(String s : check2){
+					   if(s.equals("on"))
+						   answer6.setCorrectStatus(true);
+				}
+			}else
+				   answer6.setCorrectStatus(false);
+			
+			if(check3 != null){
+				for(String s : check3){
+					   if(s.equals("on"))
+						   answer7.setCorrectStatus(true);
+				}
+			}else
+				   answer7.setCorrectStatus(false);
+			
+			if(check4 != null){
+				for(String s : check4){
+					   if(s.equals("on"))
+						   answer8.setCorrectStatus(true);
+				}
+			}else
+				   answer8.setCorrectStatus(false);
 
-			answer4.setCorrectStatus(false);
-
-
-			questionService.create(q,answer3,answer4);
+			questionService.create(q,answer5,answer6);
+			questionService.add(q, answer7);
+			questionService.add(q, answer8);
 			
 			quizService.add(quiz,q);
 			System.out.println("ubaceno");
