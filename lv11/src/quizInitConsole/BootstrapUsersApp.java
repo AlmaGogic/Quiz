@@ -90,53 +90,137 @@ public class BootstrapUsersApp {
 		
 		Question question = new Question();
 		Question question2 = new Question();
+		Question question3 = new Question();
+		Question question4 = new Question();
+		Question question5 = new Question();
 		
 		//Ako nema pitanja u bazi
-		if(questionService.findAll().isEmpty()) {
+	//	if(questionService.findAll().isEmpty()) {
 				
 			Answer answer1=new Answer();
 			Answer answer2=new Answer();
-					
+			Answer answer3=new Answer();
+			Answer answer4=new Answer();
+
+
+			
+/*ADD-------------------------------------------------------------			
+			Question foundQuestion = questionService.findByText("Which of the following is not a keyword in java?");
+			Answer answer=new Answer();
+			answer.setAnswer("Well...");
+			answer.setCorrectStatus(true);
+			
+			
+			if(foundQuestion!=null){
+				
+				answer.addToQuestion(foundQuestion);
+				foundQuestion.addAnswer(answer);
+				
+				questionService.add(foundQuestion, answer);
+			
+			}
+----------------------------------------------------------------------
+			*/
+			
+			/*
 			question.setQuestionId(0);
 			question.setAnsweredStatus(false);
 			question.setQuestionPoints(10);
-			question.setQuestionText("Volite li programirati u javi?");
+			question.setQuestionText("Which of the following is not a keyword in java?");
 			//System.out.println(question.getQuestionId()+","+question.getQuestionText()+" "+answer1.getAnswer()+" "+answer2.getAnswer());
 				
-			answer1.setAnswer("Da");
-			answer1.setCorrectStatus(true);
-			answer2.setAnswer("Ne");
-				
-			answer2.setCorrectStatus(false);
+			answer1.setAnswer("static");
+			answer1.setCorrectStatus(false);
+			answer2.setAnswer("Boolean");
+			answer2.setCorrectStatus(true);
+			answer3.setAnswer("void");
+			answer3.setCorrectStatus(false);
+			answer4.setAnswer("private");
+			answer4.setCorrectStatus(false);;
 			questionService.create(question,answer1,answer2);
 				
+			questionService.add(question, answer3);
+			//questionService.add(question, answer4);
 				
-					
+			quiz.addQuestion(question);
+			//quizService.create(quiz, question);
+			/*
+			Answer answer5=new Answer();
+			Answer answer6=new Answer();
+			Answer answer7=new Answer();
+			Answer answer8=new Answer();
+			
+			question2.setQuestionId(0);
+			question2.setAnsweredStatus(false);
+			question2.setQuestionPoints(10);
+			question2.setQuestionText("What is the size of double variable?");
 			//System.out.println(question.getQuestionId()+","+question.getQuestionText()+" "+answer1.getAnswer()+" "+answer2.getAnswer());
 				
+			answer5.setAnswer("8 bit");
+			answer5.setCorrectStatus(false);
+			answer6.setAnswer("16 bit");
+			answer6.setCorrectStatus(false);
+			answer7.setAnswer("32 bit");
+			answer7.setCorrectStatus(false);
+			answer8.setAnswer("64 bit");
+			answer8.setCorrectStatus(true);
+			questionService.create(question2,answer5,answer6);
 				
-			quizService.create(quiz, question);
+			questionService.add(question2, answer7);
+			questionService.add(question2, answer8);
 				
-		}
+			quiz.addQuestion(question2);
+			quizService.update(quiz.getQuizName(), quiz);
+			
+			Answer answer9=new Answer();
+			Answer answer10=new Answer();
+			Answer answer11=new Answer();
+			Answer answer12=new Answer();
+			
+			question3.setQuestionId(0);
+			question3.setAnsweredStatus(false);
+			question3.setQuestionPoints(10);
+			question3.setQuestionText("What is the default value of String variable?");
+			*///System.out.println(question.getQuestionId()+","+question.getQuestionText()+" "+answer1.getAnswer()+" "+answer2.getAnswer());
+				
+			/*answer9.setAnswer("\"\"");
+			answer9.setCorrectStatus(false);
+			answer10.setAnswer("''");
+			answer10.setCorrectStatus(false);
+			answer11.setAnswer("null");
+			answer11.setCorrectStatus(true);
+			answer12.setAnswer("not defined");
+			answer12.setCorrectStatus(false);
+			questionService.create(question3,answer9,answer10);
+				
+			questionService.add(question3, answer11);
+			questionService.add(question3, answer12);
+				
+			quiz.addQuestion(question3);
+			quizService.update(quiz.getQuizName(), quiz);
+				*/
+	//	}
 	
-		Answer answer3=new Answer();
-		Answer answer4=new Answer();
+		Answer answer13=new Answer();
+		Answer answer14=new Answer();
 
-		question2.setAnsweredStatus(false);
-		question2.setQuestionPoints(10);
-		question2.setQuestionText("Volite li dizajnirati u CSS-u?");
+		question4.setAnsweredStatus(false);
+		question4.setQuestionPoints(10);
+		question4.setQuestionText("Volite li dizajnirati u CSS-u?");
 
 		
-		answer3.setAnswer("Da");
-		answer3.setCorrectStatus(true);
-		answer4.setAnswer("Ne");
+		answer13.setAnswer("Da");
+		answer13.setCorrectStatus(true);
+		answer14.setAnswer("Ne");
 			
-		answer4.setCorrectStatus(false);
-		questionService.create(question2,answer3,answer4);
+		answer14.setCorrectStatus(false);
+		questionService.create(question4,answer13,answer14);
 			
 			
 		//quizService.create(quiz2, question2);
-		quizService.createEmptyQuiz(quiz2);
+//		quizService.createEmptyQuiz(quiz2);
+
+		quizService.create(quiz2, question4);
 		/*Question q=questionService.findByText(question2.getQuestionText());
 		Collection<Answer>answers=q.getAnswers();
 		System.out.println(answers.size());

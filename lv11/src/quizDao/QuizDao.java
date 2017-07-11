@@ -134,8 +134,9 @@ final public class QuizDao extends AbstractDao {
 		if(quiz!=null){
 			Collection<Question>quizQuestions=quiz.getQuestions();
 			for(Question qu : quizQuestions){
+				System.out.println(quest.getQuestionText()+","+qu.getQuestionText());		
+				
 				if(qu.getQuestionText().equals(quest.getQuestionText())){
-					//System.out.println(quest.getQuestionText()+","+qu.getQuestionText());		
 					allowAdding=false;
 					break;
 					

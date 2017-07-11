@@ -158,16 +158,21 @@ final public class QuestionDao extends AbstractDao {
 			if(q!=null){
 				Collection<Answer> answers = q.getAnswers();
 				for(Answer a : answers){
+					//System.out.println(a.getAnswer()+"AA");
 					if(a.getAnswer().equals(answer.getAnswer())){
 						addingAllowed=false;
 						break;
 					}
 				}
 				if(addingAllowed){
-					q.addAnswer(answer);
-					answer.addToQuestion(question);
-					em.merge(answer);
-					em.merge(q);
+					Answer a= new Answer();
+					a.setAnswer(answer.getAnswer());
+					a.setCorrectStatus(answer.getCorrectStatus());
+					
+					q.addAnswer(a);
+					a.addToQuestion(q);
+					em.merge(a);
+					
 				}
 			}
 			
