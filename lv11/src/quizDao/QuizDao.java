@@ -14,6 +14,22 @@ final public class QuizDao extends AbstractDao {
 		return resultList;
 	}
 	
+	public Collection<Quiz> findManyByName(String name) {
+		EntityManager em = createEntityManager();
+		try {
+			Query q = em.createQuery("SELECT q FROM Quiz q WHERE q.quizName = :name").setParameter("name", name);
+			Collection<Quiz> quiz = (Collection<Quiz>) q.getResultList();
+			return quiz;					
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+		} finally {		
+			if (em!= null) {
+				em.close();
+			}
+		}		
+		return null;
+	}
+	
 	public int numberOfQuestions(Quiz quiz){
 		EntityManager em = createEntityManager();
 		Quiz retQuiz=this.findByName(quiz.getQuizName());
@@ -162,27 +178,32 @@ final public class QuizDao extends AbstractDao {
 	}
 	
 	public void update(String quizName, Quiz quiz,boolean delete) {
-		EntityManager em = createEntityManager();
-		em.getTransaction().begin();
-		Collection<Quiz> quizzes = null;
-		quizzes.add(findByName(quizName));
-		
-		if(!quizzes.isEmpty()){
-			Quiz currentQuiz=quizzes.iterator().next();
-			Collection<Question> oldQuizQuestions =currentQuiz.getQuestions();
-			Collection<Question> newQuizQuestions =quiz.getQuestions();
-			for(Question q : newQuizQuestions){
-				oldQuizQuestions.add(q);
-				q.addToQuiz(currentQuiz);
-				em.merge(q);
+			EntityManager em = createEntityManager();
+				em.getTransaction().begin();
+				Collection<Quiz> quizzes= this.findManyByName(quizName);
+				
+				if(!quizzes.isEmpty()){
+					for(Quiz qz : quizzes){
+						if(qz.getQuizName().equals(quizName)){
+							Collection<Question> oldQuizQuestions =qz.getQuestions();
+							Collection<Question> newQuizQuestions =quiz.getQuestions();
+							for(Question q : newQuizQuestions){
+								oldQuizQuestions.add(q);
+								q.addToQuiz(qz);
+								em.merge(q);
+								
+							}
+							if(delete){
+								this.deleteQuiz(quiz);
+							}
+							
+						}
+					}
+				}
+				em.getTransaction().commit();
+				em.close();	
 			}
-			if(delete){
-				this.deleteQuiz(quiz);
-			}
-		}		
-		em.getTransaction().commit();
-		em.close();	
-	}
+			
 	
 	public void deleteQuiz(Quiz quiz) {
 

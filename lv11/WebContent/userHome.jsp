@@ -109,16 +109,8 @@
  		Collection<Result> results= (Collection<Result>)request.getAttribute("results");
  		
  		int i=0;
- 		boolean show=true;
- 		String name="";
-     	for(Quiz quiz: quizzes){
-     		for(Result r :results){
-     			if(r.getQuiz().getQuizName().equals(quiz.getQuizName())){
-     				show=false;
-     				name=r.getQuiz().getQuizName();
-     				break;
-     			}
-     		}
+ 		for(Quiz quiz: quizzes){
+     		
      		
  		%>
     	<div class="mdl-cell mdl-cell--4-col" onclick="loadQuiz('<%=quiz.getQuizName()%>')">

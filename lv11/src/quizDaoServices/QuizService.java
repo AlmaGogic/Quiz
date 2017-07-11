@@ -65,6 +65,12 @@ public class QuizService {
 			quizDao.add(quiz, question);	
 		}
 		
+		public Collection<Quiz> findManyByName(String search) {
+			return quizDao.findManyByName(search);
+		}
+		public Quiz findOneByName(String quizParam) {
+			return quizDao.findByName(quizParam);
+		}
 		
 	}
 

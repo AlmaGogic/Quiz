@@ -73,4 +73,8 @@ public class UserService {
 		
 		return null;
 	}
+
+	public Object findUnanswered(User u, Quiz qz) {
+		return userDao.findUnanswered(u, qz);
+	}
 }

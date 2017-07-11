@@ -1,4 +1,3 @@
 /quizServlets/
-/quizDao/
 /quizDaoServices/
-/quizInitConsole/
+/quizDao/

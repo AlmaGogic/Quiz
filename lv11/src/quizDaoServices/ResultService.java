@@ -73,6 +73,10 @@ public class ResultService {
 			// TODO Auto-generated method stub
 			return resultDao.findByEmail(email);
 		}
+		public Object findByHash(String hash) {
+			
+			return resultDao.findByHash(hash);
+		}
 		
 	}
 
