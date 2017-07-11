@@ -135,7 +135,8 @@ public class BootstrapUsersApp {
 		questionService.create(question2,answer3,answer4);
 			
 			
-		quizService.create(quiz2, question2);
+		//quizService.create(quiz2, question2);
+		quizService.createEmptyQuiz(quiz2);
 		/*Question q=questionService.findByText(question2.getQuestionText());
 		Collection<Answer>answers=q.getAnswers();
 		System.out.println(answers.size());

@@ -71,6 +71,9 @@ public class QuizService {
 		public Quiz findOneByName(String quizParam) {
 			return quizDao.findByName(quizParam);
 		}
+		public void createEmptyQuiz(Quiz quiz){
+			quizDao.addEmptyQuiz(quiz);
+		}
 		
 	}
 

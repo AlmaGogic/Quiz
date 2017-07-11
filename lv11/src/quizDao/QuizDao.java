@@ -47,7 +47,14 @@ final public class QuizDao extends AbstractDao {
 		EntityManager em = createEntityManager();
 		try {
 			Query q = em.createQuery("SELECT q FROM Quiz q WHERE q.quizName = :name").setParameter("name", name);
-			Quiz quiz = (Quiz) q.getSingleResult();
+			Quiz quiz=new Quiz();
+			try{
+				quiz = (Quiz) q.getSingleResult();
+				
+			}
+			catch(NoResultException e){
+				quiz=null;
+			}
 			return quiz;					
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
@@ -80,6 +87,8 @@ final public class QuizDao extends AbstractDao {
 		}		
 		return null;
 	}
+	
+	
 	
 	public Collection<Question> getQuizQuestions(Quiz q){
 		EntityManager em = createEntityManager();
@@ -152,6 +161,7 @@ final public class QuizDao extends AbstractDao {
 			}
 			quiz.setQuizName(q.getQuizName());
 			quiz.setResults(q.getResults());
+			quiz.setQuizLogo(q.getQuizLogo());
 			if(qu!=null){
 				quiz.addQuestion(qu);
 				qu.addToQuiz(quiz);
@@ -170,6 +180,25 @@ final public class QuizDao extends AbstractDao {
 		em.getTransaction().commit();
 		em.close();	
 		
+	}
+	
+	public void addEmptyQuiz(Quiz quiz){
+		EntityManager em = createEntityManager();
+		em.getTransaction().begin();
+		Quiz qu=this.findByName(quiz.getQuizName());
+		Quiz newQuiz= new Quiz();
+		if(qu==null){
+
+			newQuiz.setQuizLogo(quiz.getQuizLogo());
+			newQuiz.setQuizName(quiz.getQuizName());
+			
+			em.merge(newQuiz);
+			
+			
+			
+		}
+		em.getTransaction().commit();
+		em.close();	
 	}
 	
 	public void add(Quiz quiz, Question question) {

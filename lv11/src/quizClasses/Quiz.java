@@ -90,8 +90,19 @@ public class Quiz {
 	public void addQuizResult(Result quizResult){
 		listOfResults.add(quizResult);
 	}
+	public void addQuestions(Collection<Question>_questions){
+		for(Question question : _questions){
+			listOfQuestions.add(question);
+		}
+	}
 	public void removeQuizResult(Result quizResult){	
 		listOfResults.remove(quizResult);
+	}
+
+	public void setQuizQuestions(Collection<Question> _questions) {
+		listOfQuestions.clear();
+		this.addQuestions(_questions);
+		
 	}
 
 	
