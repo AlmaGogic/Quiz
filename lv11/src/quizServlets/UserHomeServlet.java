@@ -1,6 +1,7 @@
 package quizServlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -13,12 +14,10 @@ import quizClasses.Quiz;
 import quizClasses.Result;
 import quizClasses.Role;
 import quizClasses.User;
-import quizDao.QuestionDao;
 import quizDao.QuizDao;
 import quizDao.ResultDao;
 import quizDao.RoleDao;
 import quizDao.UserDao;
-import quizDaoServices.QuestionService;
 import quizDaoServices.QuizService;
 import quizDaoServices.ResultService;
 import quizDaoServices.RoleService;
@@ -76,9 +75,10 @@ public class UserHomeServlet extends HttpServlet {
 				request.setAttribute("task", "search");
 			}
 			else{
-				Collection<Quiz>quiz=(Collection<Quiz>) quizService.findByName(search);
-				System.out.println(quiz.size());
-				request.setAttribute("quizzes", quiz);
+				Quiz quiz=(Quiz) quizService.findByName(search);
+				Collection<Quiz> quizzes = new ArrayList<Quiz>();
+				quizzes.add(quiz);
+				request.setAttribute("quizzes", quizzes);
 				request.setAttribute("task", "search");
 			}
 		}
