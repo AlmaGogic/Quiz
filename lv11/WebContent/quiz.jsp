@@ -86,30 +86,13 @@ a:hover {
 		               <label class="mdl-textfield__label" for="qTxt">Question: </label>
 		    </div>
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		               <input type="checkbox" name="ans1" id="ans1">
 		               <input class="mdl-textfield__input" type="text" id="aTxt1" name="aTxt1">
 		               <label class="mdl-textfield__label" for="aTxt1">Answer1: </label>
 		    </div> 
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		                <input type="checkbox" name="ans2" id="ans2">
 		               <input class="mdl-textfield__input" type="text" id="aTxt2" name="aTxt2">
 		               <label class="mdl-textfield__label" for="aTxt2">Answer2: </label>
 		    </div> 
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		                <input type="checkbox" name="ans3" id="ans3">
-		               <input class="mdl-textfield__input" type="text" id="aTxt3" name="aTxt3">
-		               <label class="mdl-textfield__label" for="aTxt3">Answer3: </label>
-		    </div> 
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		                <input type="checkbox" name="ans4" id="ans4">
-		               <input class="mdl-textfield__input" type="text" id="aTxt4" name="aTxt4">
-		               <label class="mdl-textfield__label" for="aTxt4">Answer4: </label>
-		    </div> 
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		               <input class="mdl-textfield__input" type="text" id="bod" name="bod">
-		               <label class="mdl-textfield__label" for="bod">Broj bodova: </label>
-		    </div> 
-		    <input type="hidden" id="name" name="name" value="<%=request.getAttribute("name")%>">
 		      
 		    <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value = "Add">
 		     
@@ -120,12 +103,10 @@ a:hover {
 	</div>
 
 <script type="text/javascript">
-
 	    console.log("kviz");
 		document.getElementById("questions").innerHTML = "";
 		var p = <%=request.getAttribute("questions")%>;
 		
-		if(p != null){
 		for (var key in p) {
 			if (p.hasOwnProperty(key)) {
 				
@@ -159,7 +140,7 @@ a:hover {
 					answer.appendChild(delAns);
 					document.getElementById(key).appendChild(answer);
 				}
-			}
+
 	      }
          }
 		

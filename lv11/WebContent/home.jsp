@@ -57,7 +57,7 @@ main {
         <span class="mdl-badge" data-badge="4">Inbox</span>
         <a class="mdl-navigation__link" href="home">Quiz list</a>
         <a class="mdl-navigation__link" href="users">Users</a>
-        <a class="mdl-navigation__link" href="?logout=true">Log out</a>
+        <a class="mdl-navigation__link" href="/RWAProjekat-Quiz/login">Log out</a>
       </nav>
     </div>
   </header>
@@ -67,27 +67,17 @@ main {
       <a class="mdl-navigation__link" href="home">Quiz list</a>
       <a class="mdl-navigation__link" href="users">Users</a>
       <a class="mdl-navigation__link" href="">Inbox</a>
-      <a class="mdl-navigation__link" href="?logout=true">Log out</a>
+      <a class="mdl-navigation__link" href="/RWAProjekat-Quiz/login">Log out</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
    <div class="page-content" id="container" style="padding-left:100px;">Welcome, here you can edit Quizzes!
    		<div class="mdl-grid" id="quiz"></div>
-   		<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="addQuiz()">
-		  	<i class="material-icons">add</i>
-		</button>
    		</div>
   </main>
 </div>
      
 <script type="text/javascript">
-	function addQuiz(){
-	    var newQuiz = prompt("Type new quiz name", "quiz");
-	    var sendReq = new XMLHttpRequest();
-	    sendReq.open("POST", "home?req=addQuiz&quiz="+newQuiz);
-	    sendReq.send();
-	}
-
 	function editQuiz(qName){
 		 document.location.href = "quiz?name=" + qName;	
 	}
