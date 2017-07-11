@@ -33,7 +33,6 @@ function correct(quiz,question,answer,correct, points){
 			var params = "questionAjax="+question;
 			http.open("POST", url, true);
 
-			//Send the proper header information along with the request
 			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 			http.send(params);
@@ -56,12 +55,12 @@ function correct(quiz,question,answer,correct, points){
 		var params = "points="+pts+"&quiz="+quiz+"&questionAjax="+question;
 		http.open("POST", url, true);
 
-		//Send the proper header information along with the request
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		http.onreadystatechange = function() {//Call a function when the state changes.
+		http.onreadystatechange = function() {
 		    if(http.readyState == 4 && http.status == 200) {
-		        //alert("Score saved!");
+		        alert("Congratulations! You have finished "+quiz+" quiz! Now you will be redirected to your results page!");
+		        window.location = "http://localhost:8080/RWAProjekat-Quiz/user/home?t=results";
 		    }
 		}
 		http.send(params);

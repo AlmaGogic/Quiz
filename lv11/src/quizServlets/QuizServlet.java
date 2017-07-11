@@ -56,7 +56,12 @@ public class QuizServlet extends HttpServlet {
 		
 		if(name != null){
 		Quiz quiz = quizService.findByName(name);
+		if(quiz!=null){
 		questions = new ArrayList<Question>(quiz.getQuestions());
+		}
+		else{
+			questions = new ArrayList<Question>();
+		}
 		}
 		
 		for(int i = 0; i < questions.size(); i++){
